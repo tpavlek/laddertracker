@@ -1,0 +1,36 @@
+{
+    "name": "depotwarehouse/ladderheroes",
+    "description": "The Ladder Heroes website and software",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Troy Pavlek",
+            "email": "troy@tpavlek.me"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Depotwarehouse\\LadderTracker\\": "src/"
+        }
+    },
+    "require": {
+        "twig/twig": "^1.18",
+        "league/route": "^1.1",
+        "broadway/broadway": "^0.6.0",
+        "depotwarehouse/bnet-sc2-api": "^0.0.2",
+        "illuminate/database": "^5.1",
+        "illuminate/contracts": "^5.1",
+        "illuminate/support": "^5.1",
+        "league/url": "^3.3",
+        "ramsey/uuid": "^2.8",
+        "depotwarehouse/toolbox": "^2.2",
+        "symfony/var-dumper": "^2.7",
+        "league/event": "^2.1",
+        "vlucas/phpdotenv": "^2.0",
+        "symfony/console": "^2.7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.7",
+        "mockery/mockery": "^0.9.4"
+    }
+}
