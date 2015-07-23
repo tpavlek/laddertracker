@@ -9,7 +9,6 @@ use League\Event\AbstractEvent;
 
 class PointChangedEvent extends AbstractEvent implements SerializableEvent
 {
-
     protected $user;
     protected $newRank;
 
@@ -22,6 +21,11 @@ class PointChangedEvent extends AbstractEvent implements SerializableEvent
     public function difference()
     {
         return $this->user->getRank()->differenceLadderPoints($this->newRank);
+    }
+
+    public function getAggregateId()
+    {
+        return (string)$this->user->getId();
     }
 
     public function getSerialzedPayload()

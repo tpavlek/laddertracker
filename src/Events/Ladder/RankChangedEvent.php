@@ -19,6 +19,12 @@ class RankChangedEvent extends AbstractEvent implements SerializableEvent
         $this->newRank = $newRank;
     }
 
+    public function getAggregateId()
+    {
+        return (string)$this->user->getId();
+    }
+
+
     /**
      * Get the difference in the user's current rank vs. their new rank.
      *

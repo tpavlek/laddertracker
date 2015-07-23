@@ -2,7 +2,9 @@
 
 namespace Depotwarehouse\LadderTracker\ValueObjects\User;
 
-class DisplayName
+use Depotwarehouse\LadderTracker\ValueObjects\Contracts\ValueObject;
+
+class DisplayName implements ValueObject
 {
 
     protected $display_name;
@@ -14,7 +16,16 @@ class DisplayName
 
     public function __toString()
     {
-        return $this->display_name;
+        return $this->toString();
     }
 
+    public function equals(ValueObject $otherObject)
+    {
+        return $this->toString() === $otherObject->toString();
+    }
+
+    public function toString()
+    {
+        return (string)$this->display_name;
+    }
 }

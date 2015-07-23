@@ -44,17 +44,17 @@ class Rank implements ValueObject
     public function equals(ValueObject $otherObject)
     {
         /** @var Rank $otherObject */
-        return $this->getLadderRank() === $otherObject->getLadderRank() && $this->getLadderPoints() === $otherObject->getLadderPoints();
+        return $this->pointsEquals($otherObject) && $this->rankEquals($otherObject);
     }
 
     public function pointsEquals(Rank $otherRank)
     {
-        return $this->getLadderPoints() === $otherRank->getLadderPoints();
+        return $this->getLadderPoints() == $otherRank->getLadderPoints();
     }
 
     public function rankEquals(Rank $otherRank)
     {
-        return $this->getLadderRank() === $otherRank->getLadderRank();
+        return $this->getLadderRank() == $otherRank->getLadderRank();
     }
 
     public function differenceLadderRank(Rank $otherRank)
@@ -66,4 +66,10 @@ class Rank implements ValueObject
     {
         return $otherRank->getLadderPoints() - $this->getLadderPoints();
     }
+
+    public function toString()
+    {
+        return "Rank: {$this->getLadderRank()}, Points: {$this->getLadderPoints()}";
+    }
+
 }

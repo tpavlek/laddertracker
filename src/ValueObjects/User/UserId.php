@@ -2,7 +2,9 @@
 
 namespace Depotwarehouse\LadderTracker\ValueObjects\User;
 
-class UserId
+use Depotwarehouse\LadderTracker\ValueObjects\Contracts\ValueObject;
+
+class UserId implements ValueObject
 {
 
     protected $id;
@@ -14,7 +16,16 @@ class UserId
 
     public function __toString()
     {
-        return $this->id;
+        return $this->toString();
     }
 
+    public function equals(ValueObject $otherObject)
+    {
+        return $this->toString() === $otherObject->toString();
+    }
+
+    public function toString()
+    {
+        return (string)$this->id;
+    }
 }

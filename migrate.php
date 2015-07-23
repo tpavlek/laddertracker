@@ -6,6 +6,7 @@ require 'bootstrap.php';
 
     $table->increments('id');
     $table->string('eventName');
+    $table->string('aggregateId');
     $table->text('eventPayload');
 
     $table->timestamp('timestamp');

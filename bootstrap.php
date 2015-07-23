@@ -7,6 +7,7 @@ require 'vendor/autoload.php';
 $dotenv = new \Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 
+date_default_timezone_set(getenv('DEFAULT_TIMEZONE'));
 
 $capsule = new Manager();
 $capsule->addConnection([
@@ -21,3 +22,7 @@ $capsule->addConnection([
 ]);
 
 $capsule->setAsGlobal();
+
+$emitter = new \League\Event\Emitter();
+
+$tracker = new \Depotwarehouse\LadderTracker\Tracker($capsule, $emitter);

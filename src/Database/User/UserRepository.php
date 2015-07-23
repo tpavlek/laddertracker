@@ -11,6 +11,8 @@ class UserRepository
 
     const USERS_TABLE_NAME = "laddertracker_users";
 
+    const SORT_LADDER_POINTS = "ladder_points";
+
     protected $userTable;
     protected $userConstructor;
 
@@ -20,10 +22,26 @@ class UserRepository
         $this->userConstructor = $constructor;
     }
 
+    public function find($id)
+    {
+        $userData = $this->userTable->find($id);
+        return $this->userConstructor->createInstance((array)$userData);
+    }
+
     public function all()
     {
         $users = new Collection();
         foreach ($this->userTable->select()->get() as $userData) {
+            $users->push($this->userConstructor->createInstance((array)$userData));
+        }
+
+        return $users;
+    }
+
+    public function top($cutoff, $sortBy = self::SORT_LADDER_POINTS)
+    {
+        $users = new Collection();
+        foreach ($this->userTable->orderBy($sortBy, 'DESC')->take($cutoff)->get() as $userData) {
             $users->push($this->userConstructor->createInstance((array)$userData));
         }
 

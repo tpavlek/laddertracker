@@ -15,16 +15,20 @@ class UserWasRegisteredEvent extends AbstractEvent implements SerializableEvent
         $this->user = $user;
     }
 
+    public function getAggregateId()
+    {
+        return (string)$this->getUser()->getId();
+    }
+
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
     public function getPayload()
     {
-        return [
-            'id' => (string)$this->user->getId(),
-            'display_name' => (string)$this->user->getDisplayName(),
-            'bnet_id' => $this->user->getBnetId()->getId(),
-            'bnet_url' => (string)$this->user->getBnetUrl(),
-            'ladder_rank' => $this->user->getRank()->getLadderRank(),
-            'ladder_points' => $this->user->getRank()->getLadderPoints()
-        ];
+        $this->getUser()->toArray();
     }
 
     public function getSerialzedPayload()

@@ -7,4 +7,6 @@ interface ValueObject
 
     public function equals(ValueObject $otherObject);
 
+    public function toString();
+
 }

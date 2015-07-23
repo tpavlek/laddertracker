@@ -51,6 +51,7 @@ class EventRecorder extends AbstractListener
 
         $this->eventTable->insert([
             'eventName' => $event->getName(),
+            'aggregateId' => $event->getAggregateId(),
             'eventPayload' => $event->getSerialzedPayload(),
             'timestamp' => $now
         ]);

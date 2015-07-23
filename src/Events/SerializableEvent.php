@@ -11,4 +11,6 @@ interface SerializableEvent extends EventInterface
 
     public function getSerialzedPayload();
 
+    public function getAggregateId();
+
 }

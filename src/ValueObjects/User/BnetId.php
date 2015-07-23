@@ -9,6 +9,11 @@ class BnetId implements ValueObject
 
     protected $bnet_id;
 
+    public static function fromBnetUrl(BnetUrl $bnetUrl)
+    {
+        return new static($bnetUrl->getBnetIdSegment());
+    }
+
     public function __construct($bnet_id)
     {
         if (!is_numeric($bnet_id)) {
@@ -27,6 +32,11 @@ class BnetId implements ValueObject
     }
 
     public function __toString()
+    {
+        return $this->toString();
+    }
+
+    public function toString()
     {
         return (string)$this->bnet_id;
     }
