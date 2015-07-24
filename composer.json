@@ -12,7 +12,8 @@
         "psr-4": {
             "Depotwarehouse\\LadderTracker\\": "src/",
             "Depotwarehouse\\LadderTracker\\Client\\Web\\": "web/app/"
-        }
+        },
+        "classmap": [ "web/database/seeds", "web/database/migrations" ]
     },
     "require": {
         "twig/twig": "^1.18",
@@ -33,7 +34,8 @@
         "illuminate/auth": "^5.1",
         "illuminate/cookie": "^5.1",
         "laravel/framework": "^5.1",
-        "barryvdh/laravel-ide-helper": "^2.0"
+        "barryvdh/laravel-ide-helper": "^2.0",
+        "illuminate/html": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.7",
