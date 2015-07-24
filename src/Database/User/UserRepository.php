@@ -12,6 +12,7 @@ class UserRepository
     const USERS_TABLE_NAME = "laddertracker_users";
 
     const SORT_LADDER_POINTS = "ladder_points";
+    const SORT_HERO_POINTS = "hero_points";
 
     protected $userTable;
     protected $userConstructor;

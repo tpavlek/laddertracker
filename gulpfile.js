@@ -15,5 +15,5 @@ gulp.task('styles', function() {
         .pipe(concat('all.css'))
         .pipe(autoprefix('last 2 versions'))
         .pipe(minifyCSS({aggressiveMerging: false }))
-        .pipe(gulp.dest('./public/css/'))
+        .pipe(gulp.dest('./web/public/css/'))
 });

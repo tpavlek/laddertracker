@@ -4,8 +4,8 @@ use Illuminate\Database\Capsule\Manager;
 
 require 'vendor/autoload.php';
 
-$dotenv = new \Dotenv\Dotenv(__DIR__);
-$dotenv->load();
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__);
 
 date_default_timezone_set(getenv('DEFAULT_TIMEZONE'));
 

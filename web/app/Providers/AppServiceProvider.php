@@ -2,7 +2,9 @@
 
 namespace Depotwarehouse\LadderTracker\Client\Web\Providers;
 
+use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\ServiceProvider;
+use DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(ConnectionInterface::class, function() {
+            return DB::connection();
+        });
     }
 }
