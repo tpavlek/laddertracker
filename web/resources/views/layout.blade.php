@@ -11,6 +11,7 @@
         <li><a href="/about">About</a></li>
     </ul>
 </nav>
+@include('vendor.toolbox.errors.errorPartial')
 @yield('content')
 </body>
 </html>

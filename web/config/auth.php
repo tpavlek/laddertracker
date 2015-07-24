@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => Depotwarehouse\LadderTracker\Client\Web\User::class,
+    'model' => Depotwarehouse\LadderTracker\Client\Web\Http\Auth\AuthenticatedUser::class,
 
     /*
     |--------------------------------------------------------------------------

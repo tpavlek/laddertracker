@@ -14,7 +14,10 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call(UserTableSeeder::class);
+        \Depotwarehouse\LadderTracker\Client\Web\Http\Auth\AuthenticatedUser::create([
+            'id' => 1,
+            'username' => 'admin'
+        ]);
 
         Model::reguard();
     }
