@@ -19,7 +19,7 @@
         "twig/twig": "^1.18",
         "league/route": "^1.1",
         "broadway/broadway": "^0.6.0",
-        "depotwarehouse/bnet-sc2-api": "^0.0.2",
+        "depotwarehouse/bnet-sc2-api": "^0.0.3",
         "illuminate/database": "^5.1",
         "illuminate/contracts": "^5.1",
         "illuminate/support": "^5.1",

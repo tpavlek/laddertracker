@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "887b57e701e59eddb36f232551dd6d11",
+    "hash": "bb293d6567e2cf540ba25e937545a3f1",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -350,16 +350,16 @@
         },
         {
             "name": "depotwarehouse/bnet-sc2-api",
-            "version": "0.0.2",
+            "version": "0.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tpavlek/bnet-sc2-api.git",
-                "reference": "ace32676d3e453f756aaa958606c21d462c390cd"
+                "reference": "5a5bef7a8d3e62285cc7ab6810fff3ff01ffb226"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tpavlek/bnet-sc2-api/zipball/ace32676d3e453f756aaa958606c21d462c390cd",
-                "reference": "ace32676d3e453f756aaa958606c21d462c390cd",
+                "url": "https://api.github.com/repos/tpavlek/bnet-sc2-api/zipball/5a5bef7a8d3e62285cc7ab6810fff3ff01ffb226",
+                "reference": "5a5bef7a8d3e62285cc7ab6810fff3ff01ffb226",
                 "shasum": ""
             },
             "require": {
@@ -379,7 +379,7 @@
                 }
             ],
             "description": "An API wrapper for the SC2 API on Battle.net",
-            "time": "2015-06-09 21:33:25"
+            "time": "2015-07-26 16:59:03"
         },
         {
             "name": "depotwarehouse/toolbox",
