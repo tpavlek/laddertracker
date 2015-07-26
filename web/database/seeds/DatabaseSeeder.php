@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin'
         ]);
 
+        $this->command->info("Seeded initial admin user!");
+
         Model::reguard();
     }
 }

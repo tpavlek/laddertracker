@@ -10,6 +10,11 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        return redirect()->route('admin.dashboard');
+    }
+
     public function dashboard()
     {
         return view('admin.dashboard');

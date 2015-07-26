@@ -53,8 +53,18 @@ class BNetApiSyncService
         // If there are any players left in our player list, than those players are no longer in grandmaster.
         if ($playerList->count()) {
             foreach ($playerList as $player) {
-                $this->emitter->emit(new PointChangedEvent($player, Rank::userIsNotInGrandmaster()));
-                $this->emitter->emit(new RankChangedEvent($player, Rank::userIsNotInGrandmaster()));
+                $notInGrandmasterRank = Rank::userIsNotInGrandmaster();
+                /** @var User $player */
+
+                if (!$player->getRank()->pointsEquals($notInGrandmasterRank)) {
+                    $this->emitter->emit(new PointChangedEvent($player, $notInGrandmasterRank));
+                }
+
+                if (!$player->getRank()->rankEquals($notInGrandmasterRank)) {
+                    $this->emitter->emit(new RankChangedEvent($player, $notInGrandmasterRank));
+                }
+
+
             }
         }
     }

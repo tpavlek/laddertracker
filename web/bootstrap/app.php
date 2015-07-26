@@ -1,5 +1,8 @@
 <?php
 
+// We want to load environment variables from the domain application as well.
+require realpath(__DIR__."/../../startup/environment.php");
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application

@@ -1,9 +1,9 @@
-@extends('layout')
+@extends('admin.layout')
 
 @section('title')
 Administration
 @stop
 
-@section('content')
+@section('admin_content')
     Admin stuff
 @stop

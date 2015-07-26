@@ -2,10 +2,8 @@
 
 use Illuminate\Database\Capsule\Manager;
 
-require 'vendor/autoload.php';
-
-$dotenv = new Dotenv();
-$dotenv->load(__DIR__);
+require realpath(__DIR__.'/../vendor/autoload.php');
+require 'environment.php';
 
 date_default_timezone_set(getenv('DEFAULT_TIMEZONE'));
 
@@ -25,4 +23,4 @@ $capsule->setAsGlobal();
 
 $emitter = new \League\Event\Emitter();
 
-$tracker = new \Depotwarehouse\LadderTracker\Tracker($capsule, $emitter);
+$tracker = new \Depotwarehouse\LadderTracker\Tracker($capsule->getConnection(), $emitter);

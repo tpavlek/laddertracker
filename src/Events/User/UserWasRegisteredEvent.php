@@ -28,7 +28,7 @@ class UserWasRegisteredEvent extends AbstractEvent implements SerializableEvent
 
     public function getPayload()
     {
-        $this->getUser()->toArray();
+        return $this->getUser()->toArray();
     }
 
     public function getSerialzedPayload()

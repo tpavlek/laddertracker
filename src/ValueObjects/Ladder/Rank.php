@@ -31,6 +31,11 @@ class Rank implements ValueObject
         return $rank;
     }
 
+    public function isGrandmaster()
+    {
+        return $this->getLadderRank() < 201;
+    }
+
     public function getLadderRank()
     {
         return $this->rank;

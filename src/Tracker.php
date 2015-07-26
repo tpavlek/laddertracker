@@ -5,31 +5,34 @@ namespace Depotwarehouse\LadderTracker;
 use Depotwarehouse\BattleNetSC2Api\ApiService;
 use Depotwarehouse\BattleNetSC2Api\Region;
 use Depotwarehouse\LadderTracker\Database\EventRecorder;
+use Depotwarehouse\LadderTracker\Database\Month\MonthEndProjector;
 use Depotwarehouse\LadderTracker\Database\User\UserConstructor;
 use Depotwarehouse\LadderTracker\Database\User\UserHeroPointProjector;
 use Depotwarehouse\LadderTracker\Database\User\UserLadderPointProjector;
 use Depotwarehouse\LadderTracker\Database\User\UserRankProjector;
 use Depotwarehouse\LadderTracker\Database\User\UserRegistrationProjector;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
+use Depotwarehouse\LadderTracker\Events\Heroes\EndMonthEvent;
 use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\PointChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
 use Depotwarehouse\LadderTracker\Events\User\UserWasRegisteredEvent;
 use Illuminate\Database\Capsule\Manager;
+use Illuminate\Database\ConnectionInterface;
 use League\Event\Emitter;
 
 class Tracker
 {
     protected $api_key;
 
-    protected $capsule;
+    protected $connection;
     protected $emitter;
 
     protected $eventRecorder;
 
-    public function __construct(Manager $capsule, Emitter $emitter)
+    public function __construct(ConnectionInterface $connection, Emitter $emitter)
     {
-        $this->capsule = $capsule;
+        $this->connection = $connection;
         $this->emitter = $emitter;
         $this->api_key = getenv('BNET_API_KEY');
         $this->eventRecorder = $this->buildEventRecorder();
@@ -37,11 +40,12 @@ class Tracker
         $this->bindUserRegistrationListener();
         $this->bindRankChangeListeners();
         $this->bindHeroPointChangeListener();
+        $this->bindEndMonthListener();
     }
 
     protected function buildEventRecorder()
     {
-        $eventRecorder = new EventRecorder($this->capsule->getConnection(), $this->getEventProjectors());
+        $eventRecorder = new EventRecorder($this->connection, $this->getEventProjectors());
         return $eventRecorder;
     }
 
@@ -61,10 +65,14 @@ class Tracker
         $this->emitter->addListener(HeroPointChangedEvent::class, $this->eventRecorder);
     }
 
+    protected function bindEndMonthListener()
+    {
+        $this->emitter->addListener(EndMonthEvent::class, $this->eventRecorder);
+    }
     public function updateAll()
     {
         $syncService = new BNetApiSyncService(
-            new UserRepository($this->capsule->getConnection(), new UserConstructor()),
+            new UserRepository($this->connection, new UserConstructor()),
             new ApiService($this->api_key, Region::America),
             $this->emitter
         );
@@ -75,6 +83,9 @@ class Tracker
     private function getEventProjectors()
     {
         return [
+            EndMonthEvent::class => [
+                MonthEndProjector::class
+            ],
             HeroPointChangedEvent::class => [
                 UserHeroPointProjector::class,
             ],

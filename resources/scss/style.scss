@@ -1,6 +1,7 @@
 @import "vars";
 @import "forms";
 @import "tags";
+@import "notifications";
 
 
 * {
@@ -70,6 +71,10 @@ body::after {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-bottom: 2rem;
+
+  p {
+    color: whitesmoke;
+  }
 }
 
 .registered-users table {
@@ -349,6 +354,7 @@ article.jeopardy-vod {
 }
 
 .sidebar-bg {
+  width: 320px;
   background-image: linear-gradient( $primary-color 100%, $primary-color 100%);
   background-size: 320px 1px;
   background-repeat: repeat-y;
@@ -478,5 +484,18 @@ nav.post-controls {
   /* We decrease the body font size */
   body {
     font-size: 13px;
+  }
+}
+
+nav.sidebar {
+  padding-top: 2rem;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  @extend .sidebar-bg;
+  text-align: left;
+
+  ul {
+    list-style: none;
+    color: whitesmoke;
   }
 }

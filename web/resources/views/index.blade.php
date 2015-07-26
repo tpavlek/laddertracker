@@ -20,7 +20,7 @@
         <tr>
             <td>{{ $index + 1 }}.</td>
             <td><a href="{{ $user->getBnetUrl() }}">{{ $user->getDisplayName() }}</a></td>
-            <td>@if($user->getRank()->getLadderRank() > 0) <strong>{{ $user->getRank()->getLadderRank() }}</strong> ({{ $user->getRank()->getLadderPoints() }} points) @else - @endif</td>
+            <td>@if($user->getRank()->getLadderRank() > 0 && $user->getRank()->getLadderRank() < 201) <strong>{{ $user->getRank()->getLadderRank() }}</strong> ({{ $user->getRank()->getLadderPoints() }} points) @else - @endif</td>
         </tr>
         @endforeach
         </tbody>

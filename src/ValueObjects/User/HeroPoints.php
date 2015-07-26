@@ -19,6 +19,11 @@ class HeroPoints implements ValueObject
         return $this->toString();
     }
 
+    public function any()
+    {
+        return $this->getPoints() !== 0;
+    }
+
     public function getPoints()
     {
         return (int)$this->points;

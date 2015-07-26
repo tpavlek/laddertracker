@@ -2,8 +2,10 @@
 
 namespace Depotwarehouse\LadderTracker;
 
+use Depotwarehouse\LadderTracker\Database\Month\MonthConstructor;
 use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
+use Depotwarehouse\LadderTracker\Events\Heroes\EndMonthEvent;
 use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
 use League\Event\Emitter;
@@ -24,6 +26,11 @@ class HeroPointIssuerService
     {
         $i = 1;
         foreach ($this->userRepository->top(16) as $user) {
+            /** @var User $user */
+            if (!$user->getRank()->isGrandmaster()) {
+                // We've exhausted the list of grandmaster level players, so we're done.
+                return;
+            }
             $points = new HeroPoints($this->getPointsForPlacing($i));
             $this->emitter->emit(new HeroPointChangedEvent($user, $points));
 
@@ -39,6 +46,21 @@ class HeroPointIssuerService
                 $this->emitter->emit(new HeroPointChangedEvent($user, $user->getHeroPoints()->getInverse()));
             }
         }
+    }
+
+    public function endMonth(MonthConstructor $monthConstructor)
+    {
+        $users = $this->userRepository->top(16);
+
+        // We only want to serialize users that have any hero points.
+        $users = $users->filter(function (User $user) {
+            return $user->getHeroPoints()->any();
+        });
+
+        $month = $monthConstructor->create([ 'users' => $users ]);
+
+        $this->emitter->emit(new EndMonthEvent($month));
+        $this->resetPoints();
     }
 
     private function getPointsForPlacing($placement)

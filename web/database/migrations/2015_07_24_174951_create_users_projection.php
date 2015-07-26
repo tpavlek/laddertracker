@@ -20,9 +20,11 @@ class CreateUsersProjection extends Migration
             $table->integer('bnet_id')->unsigned()->unique();
             $table->string('bnet_url')->unique();
 
-            $table->integer('ladder_rank')->unsigned();
+            $table->integer('ladder_rank')->unsigned()->default(201);
             $table->integer('ladder_points')->unsigned();
             $table->integer('hero_points')->unsigned();
+
+            $table->timestamp('hero_points_updated_at');
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace Depotwarehouse\LadderTracker\Database\User;
 
+use Carbon\Carbon;
 use Depotwarehouse\LadderTracker\Database\Contracts\Projector;
 use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointChangedEvent;
 use Depotwarehouse\LadderTracker\Events\SerializableEvent;
@@ -20,6 +21,9 @@ class UserHeroPointProjector implements Projector
     public function project(SerializableEvent $event)
     {
         /** @var HeroPointChangedEvent $event */
-        $this->userTable->where('id', '=', $event->getAggregateId())->increment('hero_points', $event->difference());
+        $row = $this->userTable->where('id', '=', $event->getAggregateId());
+
+        $row->increment('hero_points', $event->difference());
+        $row->update([ 'hero_points_updated_at' => Carbon::now()->toDateTimeString() ]);
     }
 }

@@ -16,6 +16,10 @@ class UserConstructor extends EntityConstructor
 
     public function createInstance(array $attributes)
     {
+        if (isset($attributes['user_id'])) {
+            $attributes['id'] = $attributes['user_id'];
+        }
+
         require_set($attributes, [ "id", "display_name", "bnet_url", "bnet_id", "hero_points" ]);
 
         if (isset($attributes['ladder_rank']) && isset($attributes['ladder_points'])) {
