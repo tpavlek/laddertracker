@@ -28,4 +28,8 @@ Add Hero Points
             </div>
         {!! Form::close() !!}
     </div>
+
+    <script type="text/javascript">
+        $('select[name="user_id"]').select2();
+    </script>
 @stop

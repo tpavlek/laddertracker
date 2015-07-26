@@ -2,6 +2,9 @@
 <head>
     <title>@yield('title', "") - NA Ladder Heroes</title>
     <link rel="stylesheet" type="text/css" href="/css/all.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 </head>
 <body>
 <nav class="nav-header">
