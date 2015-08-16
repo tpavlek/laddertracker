@@ -79,7 +79,7 @@ class HeroPointIssuerService
                 return 15;
                 break;
             case 5:
-                return 14;
+                return 13;
                 break;
             case 6:
                 return 12;
