@@ -48,7 +48,7 @@ class MonthRepository
                     $users->push($user);
                 }
 
-                $users = $users->sortByDesc(function(User $user) { return $user->getHeroPoints()->getPoints(); } );
+                $users = $users->sortByDesc(function(User $user) { return $user->getHeroPoints()->getPoints(); } )->values();
 
                 $months->push($this->monthConstructor->createInstance([ 'id' => $month_id, 'end_date' => $month_end_date, 'users' => $users]));
             }

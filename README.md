@@ -15,6 +15,8 @@ that can speak with the domain is located in `web/`. You should point your webse
 You'll need to copy `.env.example` to `.env` and edit the appropriate values. There are two environment files to do this
 in, in the project root and in the `web/` folder.
 
+In the `web/` folder run `php artisan migrate --seed` to migrate the initial database as well as seeding the admin user.
+
 Using The System
 -----------------
 
