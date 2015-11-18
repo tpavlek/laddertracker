@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b1d5103d880e8546eeb6d02123703b6b",
-    "content-hash": "34c81fa9316517df56ea018c9a46a06d",
+    "hash": "66e09f4859b5e10c0dbffaedc9e42691",
+    "content-hash": "4fe3e0382a6df82e30027b3c5a835f33",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -69,179 +69,6 @@
                 "sublime"
             ],
             "time": "2015-08-13 11:40:00"
-        },
-        {
-            "name": "beberlei/assert",
-            "version": "v2.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/beberlei/assert.git",
-                "reference": "7281b1fd8118b31cb9162c2fb5a4cc6f01d62ed6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/7281b1fd8118b31cb9162c2fb5a4cc6f01d62ed6",
-                "reference": "7281b1fd8118b31cb9162c2fb5a4cc6f01d62ed6",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "@stable"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Assert": "lib/"
-                },
-                "files": [
-                    "lib/Assert/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de"
-                }
-            ],
-            "description": "Thin assertion library for input validation in business models.",
-            "keywords": [
-                "assert",
-                "assertion",
-                "validation"
-            ],
-            "time": "2015-08-21 16:50:17"
-        },
-        {
-            "name": "broadway/broadway",
-            "version": "0.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/qandidate-labs/broadway.git",
-                "reference": "9f8247b3e7d0f349f67b11cbfe94d1d333fb2134"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/qandidate-labs/broadway/zipball/9f8247b3e7d0f349f67b11cbfe94d1d333fb2134",
-                "reference": "9f8247b3e7d0f349f67b11cbfe94d1d333fb2134",
-                "shasum": ""
-            },
-            "require": {
-                "beberlei/assert": "~2.0",
-                "broadway/uuid-generator": "~0.1.0",
-                "php": ">=5.3.3",
-                "ramsey/uuid": "~2.4"
-            },
-            "require-dev": {
-                "doctrine/dbal": "~2.4",
-                "doctrine/mongodb": "~1.0",
-                "elasticsearch/elasticsearch": "~1.0",
-                "instaclick/base-test-bundle": "~0.5",
-                "monolog/monolog": "~1.8",
-                "symfony/console": "~2.4",
-                "symfony/proxy-manager-bridge": "~2.4"
-            },
-            "suggest": {
-                "doctrine/dbal": "For the BroadwayBundle (to persist events)",
-                "doctrine/mongodb": "For persisting saga states (required for BroadwayBundle)",
-                "elasticsearch/elasticsearch": "For persisting read models (required for BroadwayBundle)",
-                "psr/log-implementation": "Implementation for PSR3, LoggerInterface",
-                "symfony/console": "For the BroadwayBundle",
-                "symfony/proxy-manager-bridge": "For the BroadwayBundle"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.6.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Broadway\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "othillo",
-                    "email": "othillo@othillo.nl"
-                },
-                {
-                    "name": "Alexander",
-                    "email": "iam.asm89@gmail.com"
-                },
-                {
-                    "name": "Qandidate.com",
-                    "homepage": "http://labs.qandidate.com/"
-                },
-                {
-                    "name": "Willem-Jan",
-                    "email": "wjzijderveld@gmail.com"
-                },
-                {
-                    "name": "Emil",
-                    "email": "emil@broekmeulen.com"
-                },
-                {
-                    "name": "Fritsjan",
-                    "email": "fritsjan@qandidate.com"
-                }
-            ],
-            "description": "Infrastructure and testing helpers for creating CQRS and event sourced applications.",
-            "keywords": [
-                "cqrs",
-                "ddd",
-                "domain-driven design",
-                "event sourcing"
-            ],
-            "time": "2015-06-29 07:43:39"
-        },
-        {
-            "name": "broadway/uuid-generator",
-            "version": "0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/qandidate-labs/broadway-uuid-generator.git",
-                "reference": "58380b723c671807131fe9ac0ff077f162be47bb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/qandidate-labs/broadway-uuid-generator/zipball/58380b723c671807131fe9ac0ff077f162be47bb",
-                "reference": "58380b723c671807131fe9ac0ff077f162be47bb",
-                "shasum": ""
-            },
-            "require-dev": {
-                "rhumsaa/uuid": "~2.4"
-            },
-            "suggest": {
-                "rhumsaa/uuid": "Allows creating UUIDs"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Broadway\\UuidGenerator\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "UUID generator for broadway/broadway.",
-            "time": "2014-09-12 14:14:07"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -355,16 +182,16 @@
         },
         {
             "name": "depotwarehouse/blumba",
-            "version": "0.0.7",
+            "version": "0.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tpavlek/Blumba.git",
-                "reference": "cc26feb64e1bbe6f6f8717f257584879bce8e132"
+                "reference": "d55d4a2733109405523df6c312a37210dfde0645"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tpavlek/Blumba/zipball/cc26feb64e1bbe6f6f8717f257584879bce8e132",
-                "reference": "cc26feb64e1bbe6f6f8717f257584879bce8e132",
+                "url": "https://api.github.com/repos/tpavlek/Blumba/zipball/d55d4a2733109405523df6c312a37210dfde0645",
+                "reference": "d55d4a2733109405523df6c312a37210dfde0645",
                 "shasum": ""
             },
             "require": {
@@ -399,7 +226,7 @@
                 }
             ],
             "description": "An opinionated EventSourcing/CQRS framework for PHP Projects",
-            "time": "2015-09-28 19:27:07"
+            "time": "2015-11-18 17:52:57"
         },
         {
             "name": "depotwarehouse/bnet-sc2-api",
