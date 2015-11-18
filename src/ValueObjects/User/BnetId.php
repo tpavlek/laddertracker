@@ -2,48 +2,22 @@
 
 namespace Depotwarehouse\LadderTracker\ValueObjects\User;
 
-use Depotwarehouse\LadderTracker\ValueObjects\Contracts\ValueObject;
+use Depotwarehouse\Blumba\Domain\IdValue;
 
-class BnetId implements ValueObject
+class BnetId extends IdValue
 {
 
-    protected $bnet_id;
+    public function __construct($id)
+    {
+        if (!is_numeric($id)) {
+            throw new \InvalidArgumentException("Bnet ID must be numeric");
+        }
+
+        parent::__construct($id);
+    }
 
     public static function fromBnetUrl(BnetUrl $bnetUrl)
     {
         return new static($bnetUrl->getBnetIdSegment());
-    }
-
-    public function __construct($bnet_id)
-    {
-        if (!is_numeric($bnet_id)) {
-            throw new \InvalidArgumentException("Bnet ID must be numeric");
-        }
-
-        $this->bnet_id = $bnet_id;
-    }
-
-    /**
-     * @return int|string
-     */
-    public function getId()
-    {
-        return $this->bnet_id;
-    }
-
-    public function __toString()
-    {
-        return $this->toString();
-    }
-
-    public function toString()
-    {
-        return (string)$this->bnet_id;
-    }
-
-    public function equals(ValueObject $otherObject)
-    {
-        if (!$otherObject instanceof BnetId) return false;
-        return $this->getId() === $otherObject->getId();
     }
 }

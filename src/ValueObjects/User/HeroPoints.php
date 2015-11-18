@@ -2,9 +2,10 @@
 
 namespace Depotwarehouse\LadderTracker\ValueObjects\User;
 
-use Depotwarehouse\LadderTracker\ValueObjects\Contracts\ValueObject;
+use Depotwarehouse\Blumba\Domain\ValueObject;
+use Depotwarehouse\Blumba\Domain\ValueObjectInterface;
 
-class HeroPoints implements ValueObject
+class HeroPoints extends ValueObject
 {
 
     protected $points;
@@ -29,7 +30,7 @@ class HeroPoints implements ValueObject
         return (int)$this->points;
     }
 
-    public function getInverse()
+    public function invert()
     {
         return new static($this->getPoints() * -1);
     }
@@ -39,13 +40,15 @@ class HeroPoints implements ValueObject
         return (string)$this->points;
     }
 
-    public function equals(ValueObject $otherObject)
+    /**
+     * Compare this ValueObject to another of the same type.
+     *
+     * @param ValueObjectInterface $otherObject
+     * @return bool
+     */
+    protected function equalsSelf(ValueObjectInterface $otherObject)
     {
-        if ($otherObject instanceof HeroPoints) {
-            return $this->getPoints() === $otherObject->getPoints();
-        }
-
-        return $this->toString() === $otherObject->toString();
-
+        /** @var self $otherObject */
+        return $this->getPoints() === $otherObject->getPoints();
     }
 }

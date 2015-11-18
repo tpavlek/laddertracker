@@ -5,6 +5,11 @@
 @stop
 
 @section('content')
+    @if(!$message->isEmpty())
+        <div class="notification success">
+            {!! $message !!}
+        </div>
+    @endif
 <div class="info-panel registered-users">
     <h1>Current Ladder Rankings</h1>
     <table>

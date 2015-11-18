@@ -36,6 +36,18 @@
                     </li>
                 </ul>
 
+                <hr />
+
+                <h3>Messages</h3>
+                <ul>
+                    <li>
+                        <a href="{{ URL::route('admin.messages.create') }}">Create</a>
+                    </li>
+                    <li>
+                        <a href="{{ URL::route('admin.messages.expire') }}">Expire</a>
+                    </li>
+                </ul>
+
             </nav>
         </div>
         <div class="pure-u-1 pure-u-md-3-4">

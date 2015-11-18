@@ -3,20 +3,17 @@
 namespace Depotwarehouse\LadderTracker\ValueObjects\Month;
 
 use Carbon\Carbon;
-use Depotwarehouse\LadderTracker\ValueObjects\Contracts\ValueObject;
+use Depotwarehouse\Blumba\Domain\ValueObject;
+use Depotwarehouse\Blumba\Domain\ValueObjectInterface;
 
-class MonthEndDate implements ValueObject
+class MonthEndDate extends ValueObject
 {
 
     protected $date;
 
     public function __construct(Carbon $date = null)
     {
-        if (is_null($date)) {
-            $this->date = Carbon::now();
-        } else {
-            $this->date = $date;
-        }
+        $this->date = (is_null($date)) ? Carbon::now() : $date;
     }
 
     public function __toString()
@@ -29,17 +26,20 @@ class MonthEndDate implements ValueObject
         return $this->date;
     }
 
-    public function equals(ValueObject $otherObject)
-    {
-        if ($otherObject instanceof MonthEndDate) {
-            return $this->getDate()->eq($otherObject->getDate());
-        }
-
-        return $this->toString() === $otherObject->toString();
-
-    }
     public function toString()
     {
         return $this->getDate()->toDateTimeString();
+    }
+
+    /**
+     * Compare this ValueObject to another of the same type.
+     *
+     * @param ValueObjectInterface $otherObject
+     * @return bool
+     */
+    protected function equalsSelf(ValueObjectInterface $otherObject)
+    {
+        /** @var self $otherObject */
+        return $this->getDate()->eq($otherObject->getDate());
     }
 }

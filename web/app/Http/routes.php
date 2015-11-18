@@ -26,3 +26,9 @@ post('/admin/hero_points/award', [ 'as' => 'admin.hero_points.update_all', 'uses
 
 get('/admin/hero_points/end_month', [ 'as' => 'admin.hero_points.end_month', 'uses' => 'HeroPointController@showEndMonthForm' ]);
 post('/admin/hero_points/end_month', [ 'as' => 'admin.hero_points.finalize_month', 'uses' => "HeroPointController@endMonth" ]);
+
+get('/admin/messages/create', 'Messages@showCreateForm')->name('admin.messages.create');
+post('/admin/messages/create', 'Messages@store')->name('admin.messages.store');
+
+get('admin/messages/expire', 'Messages@showExpireForm')->name('admin.messages.expire');
+post('/admin/messages/expire', 'Messages@expire')->name('admin.messages.finalize_expire');

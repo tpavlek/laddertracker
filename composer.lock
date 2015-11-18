@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bd956222ce1dd7d0f718b9ab74bf2aa3",
-    "content-hash": "e0a789764de800c1d4f474ca87aa0692",
+    "hash": "b1d5103d880e8546eeb6d02123703b6b",
+    "content-hash": "34c81fa9316517df56ea018c9a46a06d",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -352,6 +352,54 @@
                 "utils"
             ],
             "time": "2015-07-23 00:54:12"
+        },
+        {
+            "name": "depotwarehouse/blumba",
+            "version": "0.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tpavlek/Blumba.git",
+                "reference": "cc26feb64e1bbe6f6f8717f257584879bce8e132"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tpavlek/Blumba/zipball/cc26feb64e1bbe6f6f8717f257584879bce8e132",
+                "reference": "cc26feb64e1bbe6f6f8717f257584879bce8e132",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^5.1",
+                "league/event": "^2.1",
+                "nesbot/carbon": "^1.20",
+                "phpdocumentor/reflection-docblock": "^2.0",
+                "ramsey/uuid": "^2.8"
+            },
+            "require-dev": {
+                "illuminate/database": "^5.1",
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^4.8"
+            },
+            "suggest": {
+                "illuminate/database": "Integrated serialization/connection"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Depotwarehouse\\Blumba\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Troy Pavlek",
+                    "email": "troy@tpavlek.me"
+                }
+            ],
+            "description": "An opinionated EventSourcing/CQRS framework for PHP Projects",
+            "time": "2015-09-28 19:27:07"
         },
         {
             "name": "depotwarehouse/bnet-sc2-api",

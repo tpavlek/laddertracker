@@ -2,10 +2,11 @@
 
 namespace Depotwarehouse\LadderTracker\ValueObjects\User;
 
-use Depotwarehouse\LadderTracker\ValueObjects\Contracts\ValueObject;
+use Depotwarehouse\Blumba\Domain\ValueObject;
+use Depotwarehouse\Blumba\Domain\ValueObjectInterface;
 use League\Url\Url;
 
-class BnetUrl implements ValueObject
+class BnetUrl extends ValueObject
 {
 
     protected $bnetUrl;
@@ -41,18 +42,19 @@ class BnetUrl implements ValueObject
         return $path[3];
     }
 
-    public function __toString()
-    {
-        return $this->toString();
-    }
-
     public function toString()
     {
         return (string)$this->bnet_url;
     }
 
-    public function equals(ValueObject $otherObject)
+    /**
+     * Compare this ValueObject to another of the same type.
+     *
+     * @param ValueObjectInterface $otherObject
+     * @return bool
+     */
+    protected function equalsSelf(ValueObjectInterface $otherObject)
     {
-        return $this->toString() === $otherObject->toString();
+        return $this->equalsOther($otherObject);
     }
 }

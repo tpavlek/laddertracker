@@ -2,9 +2,10 @@
 
 namespace Depotwarehouse\LadderTracker\ValueObjects\Ladder;
 
-use Depotwarehouse\LadderTracker\ValueObjects\Contracts\ValueObject;
+use Depotwarehouse\Blumba\Domain\ValueObject;
+use Depotwarehouse\Blumba\Domain\ValueObjectInterface;
 
-class Rank implements ValueObject
+class Rank extends ValueObject
 {
 
     const NOT_IN_GRANDMASTER_LADDER_RANK = 201;
@@ -46,12 +47,6 @@ class Rank implements ValueObject
         return $this->points;
     }
 
-    public function equals(ValueObject $otherObject)
-    {
-        /** @var Rank $otherObject */
-        return $this->pointsEquals($otherObject) && $this->rankEquals($otherObject);
-    }
-
     public function pointsEquals(Rank $otherRank)
     {
         return $this->getLadderPoints() == $otherRank->getLadderPoints();
@@ -77,4 +72,15 @@ class Rank implements ValueObject
         return "Rank: {$this->getLadderRank()}, Points: {$this->getLadderPoints()}";
     }
 
+    /**
+     * Compare this ValueObject to another of the same type.
+     *
+     * @param ValueObjectInterface $otherObject
+     * @return bool
+     */
+    protected function equalsSelf(ValueObjectInterface $otherObject)
+    {
+        /** @var Rank $otherObject */
+        return $this->pointsEquals($otherObject) && $this->rankEquals($otherObject);
+    }
 }

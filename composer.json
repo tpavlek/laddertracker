@@ -11,14 +11,14 @@
     "autoload": {
         "psr-4": {
             "Depotwarehouse\\LadderTracker\\": "src/",
-            "Depotwarehouse\\LadderTracker\\Client\\Web\\": "web/app/"
+            "Depotwarehouse\\LadderTracker\\Client\\Web\\": "web/app/",
+            "Depotwarehouse\\LadderTracker\\Client\\Web\\Tests\\": "web/tests/"
         },
         "classmap": [ "web/database/seeds", "web/database/migrations" ]
     },
     "require": {
         "twig/twig": "^1.18",
         "league/route": "^1.1",
-        "broadway/broadway": "^0.6.0",
         "depotwarehouse/bnet-sc2-api": "^0.0.5",
         "illuminate/database": "^5.1",
         "illuminate/contracts": "^5.1",
@@ -35,7 +35,8 @@
         "illuminate/cookie": "^5.1",
         "laravel/framework": "^5.1",
         "barryvdh/laravel-ide-helper": "^2.0",
-        "illuminate/html": "^5.0"
+        "illuminate/html": "^5.0",
+        "depotwarehouse/blumba": "^0.0.7"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.7",

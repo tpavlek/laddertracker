@@ -43,7 +43,7 @@ class HeroPointIssuerService
         foreach($this->userRepository->all() as $user) {
             /** @var User $user */
             if ($user->getHeroPoints()->getPoints() > 0) {
-                $this->emitter->emit(new HeroPointChangedEvent($user, $user->getHeroPoints()->getInverse()));
+                $this->emitter->emit(new HeroPointChangedEvent($user, $user->getHeroPoints()->invert()));
             }
         }
     }

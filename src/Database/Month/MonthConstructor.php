@@ -3,7 +3,7 @@
 namespace Depotwarehouse\LadderTracker\Database\Month;
 
 use Carbon\Carbon;
-use Depotwarehouse\LadderTracker\Database\EntityConstructor;
+use Depotwarehouse\Blumba\Domain\EntityConstructor;
 use Depotwarehouse\LadderTracker\ValueObjects\Month\MonthEndDate;
 use Depotwarehouse\LadderTracker\ValueObjects\Month\MonthId;
 

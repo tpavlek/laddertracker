@@ -2,7 +2,7 @@
 
 namespace Depotwarehouse\LadderTracker\Database\User;
 
-use Depotwarehouse\LadderTracker\Database\EntityConstructor;
+use Depotwarehouse\Blumba\Domain\EntityConstructor;
 use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetId;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetUrl;
