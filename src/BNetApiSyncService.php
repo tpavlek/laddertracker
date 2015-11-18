@@ -77,12 +77,12 @@ class BNetApiSyncService
     private function popLocallyTrackedPlayerFromCollection(Collection &$localCollection, Player $grandmasterPlayer)
     {
         $matched_player = $localCollection->first(function ($key, User $localUser) use ($grandmasterPlayer) {
-            return $localUser->getBnetId()->getId() == $grandmasterPlayer->getId();
+            return $localUser->getBnetId()->toString() == $grandmasterPlayer->getId();
         });
 
         if ($matched_player !== null) {
             $localCollection = $localCollection->reject(function (User $value) use ($grandmasterPlayer) {
-                return $value->getBnetId()->getId() == $grandmasterPlayer->getId();
+                return $value->getBnetId()->toString() == $grandmasterPlayer->getId();
             });
         }
 

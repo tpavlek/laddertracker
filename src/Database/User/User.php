@@ -90,10 +90,10 @@ class User extends Entity implements Arrayable
     public function toArray()
     {
         return [
-            'id' => (string)$this->getId(),
-            'display_name' => (string)$this->getDisplayName(),
-            'bnet_id' => $this->getBnetId()->getId(),
-            'bnet_url' => (string)$this->getBnetUrl(),
+            'id' => $this->getId()->serialize(),
+            'display_name' => $this->getDisplayName()->serialize(),
+            'bnet_id' => $this->getBnetId()->serialize(),
+            'bnet_url' => $this->getBnetUrl()->serialize(),
             'ladder_rank' => $this->getRank()->getLadderRank(),
             'ladder_points' => $this->getRank()->getLadderPoints(),
             'hero_points' => $this->getHeroPoints()->getPoints()
