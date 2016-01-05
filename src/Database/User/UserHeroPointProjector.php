@@ -3,12 +3,12 @@
 namespace Depotwarehouse\LadderTracker\Database\User;
 
 use Carbon\Carbon;
-use Depotwarehouse\LadderTracker\Database\Contracts\Projector;
-use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointChangedEvent;
+use Depotwarehouse\Blumba\ReadModel\Projector;
+use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\SerializableEvent;
 use Illuminate\Database\ConnectionInterface;
 
-class UserHeroPointProjector implements Projector
+class UserHeroPointProjector extends Projector
 {
 
     protected $userTable;
@@ -18,9 +18,8 @@ class UserHeroPointProjector implements Projector
         $this->userTable = $connection->table(UserRepository::USERS_TABLE_NAME);
     }
 
-    public function project(SerializableEvent $event)
+    public function projectHeroPointsChanged(HeroPointsChangedEvent $event)
     {
-        /** @var HeroPointChangedEvent $event */
         $row = $this->userTable->where('id', '=', $event->getAggregateId());
 
         $row->increment('hero_points', $event->difference());

@@ -2,11 +2,10 @@
 
 namespace Depotwarehouse\LadderTracker\Events\User;
 
+use Depotwarehouse\Blumba\EventSourcing\SerializableEvent;
 use Depotwarehouse\LadderTracker\Database\User\User;
-use Depotwarehouse\LadderTracker\Events\SerializableEvent;
-use League\Event\AbstractEvent;
 
-class UserWasRegisteredEvent extends AbstractEvent implements SerializableEvent
+class UserWasRegisteredEvent extends SerializableEvent
 {
 
     protected $user;
@@ -29,10 +28,5 @@ class UserWasRegisteredEvent extends AbstractEvent implements SerializableEvent
     public function getPayload()
     {
         return $this->getUser()->toArray();
-    }
-
-    public function getSerialzedPayload()
-    {
-        return json_encode($this->getPayload());
     }
 }

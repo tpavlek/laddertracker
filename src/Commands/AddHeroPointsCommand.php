@@ -3,7 +3,7 @@
 namespace Depotwarehouse\LadderTracker\Commands;
 
 use Depotwarehouse\LadderTracker\Database\User\User;
-use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointsChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
 use League\Event\Emitter;
 
@@ -19,7 +19,7 @@ class AddHeroPointsCommand
 
     public function run(User $user, HeroPoints $pointsToAdd)
     {
-        $this->emitter->emit(new HeroPointChangedEvent($user, $pointsToAdd));
+        $this->emitter->emit(new HeroPointsChangedEvent($user, $pointsToAdd));
     }
 
 }

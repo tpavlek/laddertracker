@@ -2,15 +2,12 @@
 
 namespace Depotwarehouse\LadderTracker\Database\Month;
 
-use Depotwarehouse\LadderTracker\Database\Contracts\Projector;
+use Depotwarehouse\Blumba\ReadModel\Projector;
 use Depotwarehouse\LadderTracker\Database\User\User;
-use Depotwarehouse\LadderTracker\Events\Heroes\EndMonthEvent;
-use Depotwarehouse\LadderTracker\Events\SerializableEvent;
-use Illuminate\Database\Connection;
+use Depotwarehouse\LadderTracker\Events\Heroes\MonthWasEndedEvent;
 use Illuminate\Database\ConnectionInterface;
-use phpDocumentor\Reflection\DocBlock\Type\Collection;
 
-class MonthEndProjector implements Projector
+class MonthEndProjector extends Projector
 {
 
     protected $monthTable;
@@ -18,15 +15,10 @@ class MonthEndProjector implements Projector
     public function __construct(ConnectionInterface $connection)
     {
         $this->monthTable = $connection->table('hero_points_month');
-
     }
 
-    public function project(SerializableEvent $event)
+    public function projectMonthWasEnded(MonthWasEndedEvent $event)
     {
-        if (!$event instanceof EndMonthEvent) {
-            throw new \InvalidArgumentException("MonthEndProjector does not know how to project event of type: {$event->getName()}");
-        }
-
         $month = $event->getMonth();
 
         foreach ($month->getUsers() as $user) {
@@ -39,7 +31,6 @@ class MonthEndProjector implements Projector
             unset($data['id']);
             unset($data['ladder_rank']);
             unset($data['ladder_points']);
-
 
             $this->monthTable->insert($data);
         }

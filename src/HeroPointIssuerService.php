@@ -5,8 +5,8 @@ namespace Depotwarehouse\LadderTracker;
 use Depotwarehouse\LadderTracker\Database\Month\MonthConstructor;
 use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
-use Depotwarehouse\LadderTracker\Events\Heroes\EndMonthEvent;
-use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Heroes\MonthWasEndedEvent;
+use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointsChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
 use League\Event\Emitter;
 
@@ -32,7 +32,7 @@ class HeroPointIssuerService
                 return;
             }
             $points = new HeroPoints($this->getPointsForPlacing($i));
-            $this->emitter->emit(new HeroPointChangedEvent($user, $points));
+            $this->emitter->emit(new HeroPointsChangedEvent($user, $points));
 
             $i++;
         }
@@ -43,7 +43,7 @@ class HeroPointIssuerService
         foreach($this->userRepository->all() as $user) {
             /** @var User $user */
             if ($user->getHeroPoints()->getPoints() > 0) {
-                $this->emitter->emit(new HeroPointChangedEvent($user, $user->getHeroPoints()->invert()));
+                $this->emitter->emit(new HeroPointsChangedEvent($user, $user->getHeroPoints()->invert()));
             }
         }
     }
@@ -59,7 +59,7 @@ class HeroPointIssuerService
 
         $month = $monthConstructor->create([ 'users' => $users ]);
 
-        $this->emitter->emit(new EndMonthEvent($month));
+        $this->emitter->emit(new MonthWasEndedEvent($month));
         $this->resetPoints();
     }
 

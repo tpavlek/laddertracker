@@ -3,12 +3,11 @@
 namespace Depotwarehouse\LadderTracker\Database;
 
 use Carbon\Carbon;
-use Depotwarehouse\LadderTracker\Database\Contracts\Projector;
-use Depotwarehouse\LadderTracker\Events\SerializableEvent;
+use Depotwarehouse\Blumba\EventSourcing\SerializableEvent;
+use Depotwarehouse\Blumba\ReadModel\Projector;
 use Illuminate\Database\ConnectionInterface;
 use League\Event\AbstractListener;
 use League\Event\EventInterface;
-use League\Event\ListenerInterface;
 
 class EventRecorder extends AbstractListener
 {

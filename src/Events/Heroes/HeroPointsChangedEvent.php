@@ -2,12 +2,11 @@
 
 namespace Depotwarehouse\LadderTracker\Events\Heroes;
 
+use Depotwarehouse\Blumba\EventSourcing\SerializableEvent;
 use Depotwarehouse\LadderTracker\Database\User\User;
-use Depotwarehouse\LadderTracker\Events\SerializableEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
-use League\Event\AbstractEvent;
 
-class HeroPointChangedEvent extends AbstractEvent implements SerializableEvent
+class HeroPointsChangedEvent extends SerializableEvent
 {
 
     protected $user;

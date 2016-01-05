@@ -8,7 +8,7 @@ use Depotwarehouse\BattleNetSC2Api\Entity\Grandmaster\Player;
 use Depotwarehouse\LadderTracker\BNetApiSyncService;
 use Depotwarehouse\LadderTracker\Database\User\UserConstructor;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
-use Depotwarehouse\LadderTracker\Events\Ladder\PointChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
 use Illuminate\Support\Collection;

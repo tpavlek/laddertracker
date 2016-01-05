@@ -2,13 +2,10 @@
 
 namespace Depotwarehouse\LadderTracker\Events\Heroes;
 
+use Depotwarehouse\Blumba\EventSourcing\SerializableEvent;
 use Depotwarehouse\LadderTracker\Database\Month\Month;
-use Depotwarehouse\LadderTracker\Database\Month\MonthConstructor;
-use Depotwarehouse\LadderTracker\Events\SerializableEvent;
-use Illuminate\Support\Collection;
-use League\Event\AbstractEvent;
 
-class EndMonthEvent extends AbstractEvent implements SerializableEvent
+class MonthWasEndedEvent extends SerializableEvent
 {
 
     protected $month;

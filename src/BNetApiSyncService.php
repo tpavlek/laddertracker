@@ -6,7 +6,7 @@ use Depotwarehouse\BattleNetSC2Api\ApiService;
 use Depotwarehouse\BattleNetSC2Api\Entity\Grandmaster\Player;
 use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
-use Depotwarehouse\LadderTracker\Events\Ladder\PointChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
 use Illuminate\Support\Collection;
@@ -40,7 +40,7 @@ class BNetApiSyncService
 
                 // Has the user's points differed from our locally tracked version?
                 if (!$matched_player->getRank()->pointsEquals($grandmasterPlayerRank)) {
-                    $this->emitter->emit(new PointChangedEvent($matched_player, $grandmasterPlayerRank));
+                    $this->emitter->emit(new PointsChangedEvent($matched_player, $grandmasterPlayerRank));
                 }
 
                 // Has the user's rank differed from our locally tracked version?
@@ -57,7 +57,7 @@ class BNetApiSyncService
                 /** @var User $player */
 
                 if (!$player->getRank()->pointsEquals($notInGrandmasterRank)) {
-                    $this->emitter->emit(new PointChangedEvent($player, $notInGrandmasterRank));
+                    $this->emitter->emit(new PointsChangedEvent($player, $notInGrandmasterRank));
                 }
 
                 if (!$player->getRank()->rankEquals($notInGrandmasterRank)) {

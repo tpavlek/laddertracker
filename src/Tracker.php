@@ -12,9 +12,9 @@ use Depotwarehouse\LadderTracker\Database\User\UserLadderPointProjector;
 use Depotwarehouse\LadderTracker\Database\User\UserRankProjector;
 use Depotwarehouse\LadderTracker\Database\User\UserRegistrationProjector;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
-use Depotwarehouse\LadderTracker\Events\Heroes\EndMonthEvent;
-use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointChangedEvent;
-use Depotwarehouse\LadderTracker\Events\Ladder\PointChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Heroes\MonthWasEndedEvent;
+use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointsChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
 use Depotwarehouse\LadderTracker\Events\User\UserWasRegisteredEvent;
 use Illuminate\Database\Capsule\Manager;
@@ -56,18 +56,18 @@ class Tracker
 
     protected function bindRankChangeListeners()
     {
-        $this->emitter->addListener(PointChangedEvent::class, $this->eventRecorder);
+        $this->emitter->addListener(PointsChangedEvent::class, $this->eventRecorder);
         $this->emitter->addListener(RankChangedEvent::class, $this->eventRecorder);
     }
 
     protected function bindHeroPointChangeListener()
     {
-        $this->emitter->addListener(HeroPointChangedEvent::class, $this->eventRecorder);
+        $this->emitter->addListener(HeroPointsChangedEvent::class, $this->eventRecorder);
     }
 
     protected function bindEndMonthListener()
     {
-        $this->emitter->addListener(EndMonthEvent::class, $this->eventRecorder);
+        $this->emitter->addListener(MonthWasEndedEvent::class, $this->eventRecorder);
     }
     public function updateAll()
     {
@@ -83,13 +83,13 @@ class Tracker
     private function getEventProjectors()
     {
         return [
-            EndMonthEvent::class => [
+            MonthWasEndedEvent::class => [
                 MonthEndProjector::class
             ],
-            HeroPointChangedEvent::class => [
+            HeroPointsChangedEvent::class => [
                 UserHeroPointProjector::class,
             ],
-            PointChangedEvent::class => [
+            PointsChangedEvent::class => [
                 UserLadderPointProjector::class,
             ],
             RankChangedEvent::class => [

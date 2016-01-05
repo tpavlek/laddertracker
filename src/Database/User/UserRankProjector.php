@@ -2,11 +2,11 @@
 
 namespace Depotwarehouse\LadderTracker\Database\User;
 
-use Depotwarehouse\LadderTracker\Database\Contracts\Projector;
-use Depotwarehouse\LadderTracker\Events\SerializableEvent;
+use Depotwarehouse\Blumba\ReadModel\Projector;
+use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
 use Illuminate\Database\ConnectionInterface;
 
-class UserRankProjector implements Projector
+class UserRankProjector extends Projector
 {
 
     protected $userTable;
@@ -16,10 +16,8 @@ class UserRankProjector implements Projector
         $this->userTable = $connection->table(UserRepository::USERS_TABLE_NAME);
     }
 
-    public function project(SerializableEvent $event)
+    public function projectRankChanged(RankChangedEvent $event)
     {
         $this->userTable->where('id', '=', $event->getPayload()['userId'])->decrement('ladder_rank', $event->getPayload()['difference']);
     }
-
-
 }
