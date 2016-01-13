@@ -2,12 +2,15 @@
 
 namespace Depotwarehouse\LadderTracker\Client\Console;
 
+use Carbon\Carbon;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class AwardHeroPointsCommand extends Command
 {
+
+    private $internalCommand;
 
     public function __construct(\Depotwarehouse\LadderTracker\Commands\AwardHeroPointsCommand $internalCommand)
     {
@@ -23,8 +26,10 @@ class AwardHeroPointsCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $date = Carbon::now()->toDateTimeString();
+
         $this->internalCommand->run();
-        $output->writeln("Awarded hero points to all users!");
+        $output->writeln("[$date] Awarded hero points to all users!");
     }
 
 }

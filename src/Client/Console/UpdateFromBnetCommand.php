@@ -2,6 +2,7 @@
 
 namespace Depotwarehouse\LadderTracker\Client\Console;
 
+use Carbon\Carbon;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,9 +27,13 @@ class UpdateFromBnetCommand extends Command
 
     public function run(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("Querying and updating from the Battle.net API...");
+        $date = Carbon::now()->toDateTimeString();
+
+        $output->writeln("[$date] Querying and updating from the Battle.net API...");
         $this->internalCommand->run();
-        $output->writeln("Updated!");
+
+        $date = Carbon::now()->toDateTimeString();
+        $output->writeln("[$date] Updated!");
     }
 
 }

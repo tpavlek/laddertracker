@@ -2,6 +2,7 @@
 
 namespace Depotwarehouse\LadderTracker\Client\Console;
 
+use Carbon\Carbon;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
 use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
 use Symfony\Component\Console\Command\Command;
@@ -39,7 +40,9 @@ class AddHeroPointsCommand extends Command
 
         $this->internalCommand->run($user, $pointsToAdd);
 
-        $output->writeln("Added {$pointsToAdd->getPoints()} hero points to {$user->getDisplayName()->toString()}");
+        $date = Carbon::now()->toDateTimeString();
+
+        $output->writeln("[$date] Added {$pointsToAdd->getPoints()} hero points to {$user->getDisplayName()->toString()}");
     }
 
 }
