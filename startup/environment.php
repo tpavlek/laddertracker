@@ -1,4 +1,6 @@
 <?php
 
-$dotenv = new Dotenv();
-$dotenv->load(__DIR__."/../");
+use Dotenv\Dotenv;
+
+$dotenv = new Dotenv(__DIR__."/../");
+$dotenv->load();

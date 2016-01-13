@@ -7,7 +7,8 @@ End Month
 @section('admin_content')
     <div class="info-panel">
         <h2>End Month</h2>
-        {!! Form::open([ 'route' => 'admin.hero_points.finalize_month', 'method' => 'POST', 'class' => 'pure-form pure-form-aligned' ]) !!}
+        <form action="{{ URL::route('admin.hero_points.finalize_month') }}" method="POST" class="pure-form pure-form-aligned">
+            {{ csrf_field() }}
 
             <p>
                 Use this button to end the current ladder heroes month.
@@ -22,6 +23,6 @@ End Month
                 <input type="submit" class="button success" value="End Month" />
             </div>
 
-        {!! Form::close() !!}
+        </form>
     </div>
 @stop

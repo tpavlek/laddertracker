@@ -6,21 +6,22 @@ Register User
 
 @section('admin_content')
     <div class="info-panel">
-        {!! Form::open([ 'route' => 'admin.user.register', 'method' => 'POST', 'class' => 'pure-form pure-form-aligned' ]) !!}
+        <form action="{{ URL::route('admin.user.register') }}" method="POST" class="pure-form pure-form-aligned">
+            <!-- Display_name Form Input -->
             <div class="pure-control-group">
-                {!! Form::label('display_name', "Display Name:") !!}
-                {!! Form::text('display_name') !!}
+                <label for="display_name">Display Name:</label>
+                <input type="text" name="display_name" title="display_name"/>
             </div>
 
+            <!-- Bnet_url Form Input -->
             <div class="pure-control-group">
-                {!! Form::label('bnet_url', "Battle.net URL:") !!}
-                {!! Form::text('bnet_url') !!}
+                <label for="bnet_url">Battle.net URL:</label>
+                <input type="text" name="bnet_url" title="bnet_url"/>
             </div>
 
             <div class="pure-controls">
                 <input type="submit" class="button success" value="Register" />
             </div>
 
-        {!! Form::close() !!}
-    </div>
+        </form>
 @stop

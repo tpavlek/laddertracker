@@ -77,13 +77,17 @@ body::after {
   }
 }
 
-.registered-users table {
+table {
   min-width: 50%;
   font-size: 140%;
   line-height: 2em;
 
   tr {
     border-bottom: 1px solid $navigation-color;
+  }
+
+  td:not(:first-child), th:not(:first-child) {
+    padding-left: 1rem;
   }
 }
 

@@ -21,6 +21,16 @@ class AuthenticatedUser extends Model implements Authenticatable
     }
 
     /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return "id";
+    }
+
+    /**
      * Get the password for the user.
      *
      * @return string
@@ -60,4 +70,6 @@ class AuthenticatedUser extends Model implements Authenticatable
     {
         // TODO: Implement getRememberTokenName() method.
     }
+
+
 }

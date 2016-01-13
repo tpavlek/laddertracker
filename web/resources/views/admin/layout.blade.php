@@ -7,6 +7,9 @@
                 <h3>User</h3>
                 <ul>
                     <li>
+                        <a href="{{ URL::route('admin.user.list') }}">List</a>
+                    </li>
+                    <li>
                         <a href="{{ URL::route('admin.user.create') }}">Register</a>
                     </li>
 
