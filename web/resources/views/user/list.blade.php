@@ -27,7 +27,5 @@ All LadderHeroes Users
             </tbody>
         </table>
 
-        {!! $users->links() !!}
-
     </div>
 @stop

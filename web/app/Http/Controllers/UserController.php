@@ -27,13 +27,9 @@ class UserController extends Controller
 
     public function listUsers(UserRepository $userRepository, Request $request)
     {
-        $currentPage = ($request->has('page')) ? $request->get('page') : 1;
-
         $users = $userRepository->all();
-        $pagedUsers = new LengthAwarePaginator($users->slice(($currentPage - 1) * 15, 15), $users->count(), 15, $currentPage);
-        $pagedUsers->setPath(URL::route('admin.user.list'));
 
-        return view('user.list')->with('users', $pagedUsers);
+        return view('user.list')->with('users', $users);
 
     }
 
