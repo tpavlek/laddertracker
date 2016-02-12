@@ -7,6 +7,7 @@ Register User
 @section('admin_content')
     <div class="info-panel">
         <form action="{{ URL::route('admin.user.register') }}" method="POST" class="pure-form pure-form-aligned">
+            {{ csrf_field() }}
             <!-- Display_name Form Input -->
             <div class="pure-control-group">
                 <label for="display_name">Display Name:</label>
@@ -24,4 +25,5 @@ Register User
             </div>
 
         </form>
+    </div>
 @stop

@@ -11,7 +11,7 @@
     <span class="title"><a href="/">Ladder Heroes</a></span>
     <ul>
         <li><a href="{{ URL::route('home.standings') }}">Standings</a></li>
-        <li><a href="{{ URL::route('home.about') }}">Rules</a></li>
+        <li><a href="{{ URL::route('home.about') }}">Signup</a></li>
         <li><a href="{{ URL::route('home.history') }}">History</a></li>
 
         @if (Auth::check())

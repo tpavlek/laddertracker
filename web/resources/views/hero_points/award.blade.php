@@ -11,7 +11,8 @@ Award Hero Points
 
             {{ csrf_field() }}
             <p>
-                Use this button to automatically award hero points to the top 16 players, based on their ladder ranking.
+                Use this button to automatically award hero points to the top {{ \Depotwarehouse\LadderTracker\HeroPointIssuerService::NUM_PLAYERS_AWARD_TO }}
+                players, based on their ladder ranking.
             </p>
 
             <div class="pure-controls">

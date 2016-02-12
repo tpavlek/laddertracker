@@ -22,7 +22,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $users = $this->userRepository->top(20, UserRepository::SORT_LADDER_RANK);
+        $users = $this->userRepository->top(25, UserRepository::SORT_LADDER_RANK);
 
         return view('index')
             ->with('users', $users)

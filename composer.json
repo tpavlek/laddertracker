@@ -19,7 +19,7 @@
     "require": {
         "twig/twig": "^1.18",
         "league/route": "^1.1",
-        "depotwarehouse/bnet-sc2-api": "^0.0.5",
+        "depotwarehouse/bnet-sc2-api": "^0.0.6",
         "league/url": "^3.3",
         "ramsey/uuid": "^2.8",
         "depotwarehouse/toolbox": "^2.2",

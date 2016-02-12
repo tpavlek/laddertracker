@@ -13,6 +13,8 @@ use League\Event\Emitter;
 class HeroPointIssuerService
 {
 
+    const NUM_PLAYERS_AWARD_TO = 20;
+
     protected $userRepository;
     protected $emitter;
 
@@ -25,7 +27,7 @@ class HeroPointIssuerService
     public function awardPoints()
     {
         $i = 1;
-        foreach ($this->userRepository->top(16) as $user) {
+        foreach ($this->userRepository->top(self::NUM_PLAYERS_AWARD_TO) as $user) {
             /** @var User $user */
             if (!$user->getRank()->isGrandmaster()) {
                 // We've exhausted the list of grandmaster level players, so we're done.
@@ -50,7 +52,7 @@ class HeroPointIssuerService
 
     public function endMonth(MonthConstructor $monthConstructor)
     {
-        $users = $this->userRepository->top(16);
+        $users = $this->userRepository->top(self::NUM_PLAYERS_AWARD_TO);
 
         // We only want to serialize users that have any hero points.
         $users = $users->filter(function (User $user) {
@@ -65,60 +67,30 @@ class HeroPointIssuerService
 
     private function getPointsForPlacing($placement)
     {
-        switch ($placement) {
-            case 1:
-                return 19;
-                break;
-            case 2:
-                return 17;
-                break;
-            case 3:
-                return 16;
-                break;
-            case 4:
-                return 15;
-                break;
-            case 5:
-                return 13;
-                break;
-            case 6:
-                return 12;
-                break;
-            case 7:
-                return 11;
-                break;
-            case 8:
-                return 10;
-                break;
-            case 9:
-                return 8;
-                break;
-            case 10:
-                return 7;
-                break;
-            case 11:
-                return 6;
-                break;
-            case 12:
-                return 5;
-                break;
-            case 13:
-                return 4;
-                break;
-            case 14:
-                return 3;
-                break;
-            case 15:
-                return 2;
-                break;
-            case 16:
-                return 1;
-                break;
-            default:
-                return 0;
-                break;
-        }
 
+        $placements = [
+            1 => 23,
+            2 => 21,
+            3 => 20,
+            4 => 19,
+            5 => 17,
+            6 => 16,
+            7 => 15,
+            8 => 14,
+            9 => 12,
+            10 => 11,
+            11 => 10,
+            12 => 9,
+            13 => 8,
+            14 => 7,
+            15 => 6,
+            16 => 5,
+            17 => 4,
+            18 => 3,
+            19 => 2,
+            20 => 1,
+        ];
+
+        return (isset($placements[$placement])) ? $placements[$placement] : 0;
     }
-
 }
