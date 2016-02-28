@@ -13,6 +13,7 @@
         <li><a href="{{ URL::route('home.standings') }}">Standings</a></li>
         <li><a href="{{ URL::route('home.about') }}">Signup</a></li>
         <li><a href="{{ URL::route('home.history') }}">History</a></li>
+        <li><a href="http://www.patreon.com/feardragon64">Contribute</a></li>
 
         @if (Auth::check())
             <li><a href="{{ URL::route('admin.index') }}">Admin</a></li>
