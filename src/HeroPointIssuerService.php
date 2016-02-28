@@ -52,7 +52,7 @@ class HeroPointIssuerService
 
     public function endMonth(MonthConstructor $monthConstructor)
     {
-        $users = $this->userRepository->top(self::NUM_PLAYERS_AWARD_TO);
+        $users = $this->userRepository->all();
 
         // We only want to serialize users that have any hero points.
         $users = $users->filter(function (User $user) {
