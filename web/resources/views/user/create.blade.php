@@ -20,6 +20,14 @@ Register User
                 <input type="text" name="bnet_url" title="bnet_url"/>
             </div>
 
+            <div class="pure-control-group">
+                <label for="region">Region:</label>
+                <select name="region">
+                    <option value="{{ \Depotwarehouse\BattleNetSC2Api\Region::America }}">North America</option>
+                    <option value="{{ \Depotwarehouse\BattleNetSC2Api\Region::Europe }}">Europe</option>
+                </select>
+            </div>
+
             <div class="pure-controls">
                 <input type="submit" class="button success" value="Register" />
             </div>

@@ -14,7 +14,7 @@
                 Use this button to make a call to the Battle.net API and update all the scores of the users.
             </p>
             <p>
-                Bear in mind, that this is automatically run on a schedule, every minute, so only do this if you want an update <strong>now</strong>
+                Bear in mind, that this is automatically register on a schedule, every minute, so only do this if you want an update <strong>now</strong>
             </p>
             <div class="pure-controls">
                 <input type="submit" class="button success" value="Update Ranks" />

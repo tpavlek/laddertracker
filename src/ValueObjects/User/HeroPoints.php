@@ -51,4 +51,9 @@ class HeroPoints extends ValueObject
         /** @var self $otherObject */
         return $this->getPoints() === $otherObject->getPoints();
     }
+
+    public static function none()
+    {
+        return new HeroPoints(0);
+    }
 }

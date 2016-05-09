@@ -3,9 +3,11 @@
 namespace Depotwarehouse\LadderTracker\Tests\Database;
 
 use Carbon\Carbon;
+use Depotwarehouse\Blumba\Domain\DateTimeValue;
 use Depotwarehouse\LadderTracker\Client\Web\Tests\TestCase;
 use Depotwarehouse\LadderTracker\Database\MessageRecord;
 use Depotwarehouse\LadderTracker\ValueObjects\Messaging\Message;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class MessageRecordTest extends TestCase
@@ -28,24 +30,20 @@ class MessageRecordTest extends TestCase
      */
     public function it_retrieves_the_latest_message_that_is_not_expired()
     {
-        $today = Carbon::now()->toDateTimeString();
-        $yesterday = Carbon::now()->subDay()->toDateTimeString();
-        $nextWeek = Carbon::now()->addWeek()->toDateTimeString();
+        $nextWeek = new DateTimeValue(Carbon::now()->addWeek());
 
-        MessageRecord::unguard();
+        MessageRecord::createFrom(
+            new Message("First Message", $nextWeek),
+            new Region(\Depotwarehouse\BattleNetSC2Api\Region::America)
+        );
 
-        MessageRecord::create([
-            'message' => "First Message",
-            'created_at' => $yesterday,
-            'updated_at' => $today,
-            'expires' => $nextWeek
-        ]);
-        MessageRecord::create([
-            'message' => 'Second Message',
-            'created_at' => $yesterday,
-            'updated_at' => $yesterday,
-            'expires' => $nextWeek
-        ]);
+        // We want the second message to be from yestarday
+        Carbon::setTestNow(Carbon::now()->subDay());
+
+        MessageRecord::createFrom(
+            new Message("Second Message", $nextWeek),
+            new Region(\Depotwarehouse\BattleNetSC2Api\Region::Europe)
+        );
 
         $messages = new MessageRecord();
         $message = $messages->latest();
@@ -59,13 +57,11 @@ class MessageRecordTest extends TestCase
      */
     public function it_can_expire_all_messages()
     {
-        MessageRecord::unguard();
-        MessageRecord::create([
-            'message' => 'Some Message',
-            'created_at' => Carbon::now()->toDateTimeString(),
-            'updated_at' => Carbon::now()->toDateTimeString(),
-            'expires' => Carbon::now()->addWeeks(1)
-        ]);
+
+        MessageRecord::createFrom(
+            new Message("Some Message", new DateTimeValue(Carbon::now()->addWeeks(1))),
+            new Region(\Depotwarehouse\BattleNetSC2Api\Region::America)
+        );
 
         $messages = new MessageRecord();
         $messages->expireAll();

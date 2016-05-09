@@ -4,6 +4,7 @@ namespace Depotwarehouse\LadderTracker\Client\Web\Http\Controllers;
 
 use Depotwarehouse\LadderTracker\Commands\RegisterUserCommand;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetId;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetUrl;
 use Depotwarehouse\LadderTracker\ValueObjects\User\DisplayName;
@@ -39,8 +40,9 @@ class UserController extends Controller
             $displayName = new DisplayName($input->get('display_name'));
             $bnet_url = new BnetUrl($input->get('bnet_url'));
             $bnet_id = BnetId::fromBnetUrl($bnet_url);
+            $region = new Region($input->get('region'));
 
-            $registerUserCommand->run($displayName, $bnet_id, $bnet_url);
+            $registerUserCommand->register($displayName, $bnet_id, $bnet_url, $region);
 
             return redirect()->route('admin.dashboard')->withErrors(new MessageBag([
                 'success' => "Successfully registered {$displayName}"

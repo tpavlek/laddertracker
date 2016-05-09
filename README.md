@@ -7,7 +7,7 @@ hosted by [feardragon64](https://twitter.com/feardragon64). All code and design 
 Installation
 --------------
 
-First run `composer install` in the project root.
+First register `composer install` in the project root.
 
 There are two main components to the system. The main application domain is all in the src/ folder, and a Laravel installation
 that can speak with the domain is located in `web/`. You should point your webserver to the `web/public/` folder.
@@ -15,7 +15,7 @@ that can speak with the domain is located in `web/`. You should point your webse
 You'll need to copy `.env.example` to `.env` and edit the appropriate values. There are two environment files to do this
 in, in the project root and in the `web/` folder.
 
-In the `web/` folder run `php artisan migrate --seed` to migrate the initial database as well as seeding the admin user.
+In the `web/` folder register `php artisan migrate --seed` to migrate the initial database as well as seeding the admin user.
 
 Using The System
 -----------------

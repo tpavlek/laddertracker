@@ -7,6 +7,7 @@ use Depotwarehouse\LadderTracker\Client\Web\Tests\TestCase;
 use Depotwarehouse\LadderTracker\Commands\CreateMessageCommand;
 use Depotwarehouse\LadderTracker\Database\MessageRecord;
 use Depotwarehouse\LadderTracker\ValueObjects\Messaging\Message;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CreateMessageCommandTest extends TestCase
@@ -34,9 +35,9 @@ class CreateMessageCommandTest extends TestCase
 
         $createCommand = new CreateMessageCommand(new MessageRecord());
 
-        $createCommand->run($message);
+        $createCommand->run($message, new Region(\Depotwarehouse\BattleNetSC2Api\Region::America));
 
-        $this->seeInDatabase('messages', [ 'message' => "Message in database paradise", 'expires' => $now->getDateTime()->toDateTimeString() ]);
+        $this->seeInDatabase('messages', [ 'message' => "Message in database paradise", 'expires' => $now->getDateTime()->toDateTimeString(), 'region' => \Depotwarehouse\BattleNetSC2Api\Region::America ]);
     }
 
 }

@@ -11,6 +11,7 @@ All LadderHeroes Users
                 <tr>
                     <th>Display Name</th>
                     <th>Battle.net URL</th>
+                    <th>Region</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,10 +19,11 @@ All LadderHeroes Users
                     <tr>
                         <td>{{ $user->getDisplayName() }}</td>
                         <td>{{ $user->getBnetUrl() }}</td>
+                        <td>{{ $user->getRegion() }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="2"><em>No users registered</em></td>
+                        <td colspan="3"><em>No users registered</em></td>
                     </tr>
                 @endforelse
             </tbody>

@@ -4,6 +4,7 @@ namespace Depotwarehouse\LadderTracker\Database\User;
 
 use Depotwarehouse\Blumba\Domain\EntityConstructor;
 use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetId;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetUrl;
 use Depotwarehouse\LadderTracker\ValueObjects\User\DisplayName;
@@ -21,6 +22,10 @@ class UserConstructor extends EntityConstructor
         }
 
         require_set($attributes, [ "id", "display_name", "bnet_url", "bnet_id", "hero_points" ]);
+
+        if (!isset($attributes['region'])) {
+            $attributes['region'] = \Depotwarehouse\BattleNetSC2Api\Region::America;
+        }
 
         if (isset($attributes['ladder_rank']) && isset($attributes['ladder_points'])) {
             $rank = Rank::userIsRankedWithPoints($attributes['ladder_rank'], $attributes['ladder_points']);
@@ -49,7 +54,8 @@ class UserConstructor extends EntityConstructor
             ($attributes['bnet_id'] instanceof BnetId) ? $attributes['bnet_id'] : new BnetId($attributes['bnet_id']),
             ($attributes['bnet_url'] instanceof BnetUrl) ? $attributes['bnet_url'] : new BnetUrl($attributes['bnet_url']),
             $rank,
-            ($attributes['hero_points'] instanceof HeroPoints) ? $attributes['hero_points'] : new HeroPoints($attributes['hero_points'])
+            ($attributes['hero_points'] instanceof HeroPoints) ? $attributes['hero_points'] : new HeroPoints($attributes['hero_points']),
+            ($attributes['region'] instanceof Region) ? $attributes['region'] : new Region($attributes['region'])
         );
 
         return $user;

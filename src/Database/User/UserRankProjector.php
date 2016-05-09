@@ -18,6 +18,8 @@ class UserRankProjector extends Projector
 
     public function projectRankChanged(RankChangedEvent $event)
     {
-        $this->userTable->where('id', '=', $event->getPayload()['userId'])->decrement('ladder_rank', $event->getPayload()['difference']);
+        $this->userTable
+            ->where('id', '=', $event->getPayload()['userId'])
+            ->decrement('ladder_rank', $event->difference());
     }
 }

@@ -34,7 +34,7 @@ namespace {
         }
         
         /**
-         * Register a callback to run after loading the environment.
+         * Register a callback to register after loading the environment.
          *
          * @param \Closure $callback
          * @return void 
@@ -45,7 +45,7 @@ namespace {
         }
         
         /**
-         * Register a callback to run before a bootstrapper.
+         * Register a callback to register before a bootstrapper.
          *
          * @param string $bootstrapper
          * @param \Closure $callback
@@ -57,7 +57,7 @@ namespace {
         }
         
         /**
-         * Register a callback to run after a bootstrapper.
+         * Register a callback to register after a bootstrapper.
          *
          * @param string $bootstrapper
          * @param \Closure $callback
@@ -1144,7 +1144,7 @@ namespace {
         }
         
         /**
-         * Get the output for the last run command.
+         * Get the output for the last register command.
          *
          * @return string 
          * @static 

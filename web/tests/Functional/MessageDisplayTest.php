@@ -3,8 +3,11 @@
 namespace Depotwarehouse\LadderTracker\Client\Web\Tests\Functional;
 
 use Carbon\Carbon;
+use Depotwarehouse\Blumba\Domain\DateTimeValue;
 use Depotwarehouse\LadderTracker\Client\Web\Tests\TestCase;
 use Depotwarehouse\LadderTracker\Database\MessageRecord;
+use Depotwarehouse\LadderTracker\ValueObjects\Messaging\Message;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class MessageDisplayTest extends TestCase
@@ -23,36 +26,25 @@ class MessageDisplayTest extends TestCase
     }
 
     /**
-     *
      * @test
      */
     public function it_shows_most_recent_message_that_has_not_expired()
     {
-        $today = Carbon::now()->toDateTimeString();
-        $yesterday = Carbon::now()->subDay()->toDateTimeString();
-        $nextWeek = Carbon::now()->addWeek()->toDateTimeString();
+        $yesterday = new DateTimeValue(Carbon::now()->subDay());
+        $nextWeek = new DateTimeValue(Carbon::now()->addWeek());
 
-        MessageRecord::create([
-            'message' => "First Message",
-            'created_at' => $yesterday,
-            'updated_at' => $today,
-            'expires' => $nextWeek
-        ]);
-        MessageRecord::create([
-            'message' => 'Second Message',
-            'created_at' => $yesterday,
-            'updated_at' => $yesterday,
-            'expires' => $nextWeek
-        ]);
+        MessageRecord::createFrom(
+            new Message("First message", $nextWeek),
+            new Region(\Depotwarehouse\BattleNetSC2Api\Region::America)
+        );
+
+        MessageRecord::createFrom(
+            new Message("Second Message", $yesterday),
+            new Region(\Depotwarehouse\BattleNetSC2Api\Region::Europe)
+        );
 
         $this->visit('/')
             ->dontSee("Second Message")
             ->see("First Message");
     }
-
-    /*public function test_it_will_not_show_a_message_that_has_expired()
-    {
-
-    }*/
-
 }

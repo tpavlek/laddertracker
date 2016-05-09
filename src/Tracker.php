@@ -69,15 +69,23 @@ class Tracker
     {
         $this->emitter->addListener(MonthWasEndedEvent::class, $this->eventRecorder);
     }
+
+    /**
+     * Query the grandmaster ladder, and sync all results for both Europe and America
+     */
     public function updateAll()
     {
-        $syncService = new BNetApiSyncService(
+        (new BNetApiSyncService(
             new UserRepository($this->connection, new UserConstructor()),
             new ApiService($this->api_key, Region::America),
             $this->emitter
-        );
+        ))->update();
 
-        $syncService->update();
+        (new BNetApiSyncService(
+            new UserRepository($this->connection, new UserConstructor()),
+            new ApiService($this->api_key, Region::Europe),
+            $this->emitter
+        ))->update();
     }
 
     private function getEventProjectors()

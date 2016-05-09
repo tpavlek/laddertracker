@@ -21,6 +21,13 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info("Seeded initial admin user!");
 
+        DB::table('regions')->insert([
+            [ 'name' => \Depotwarehouse\BattleNetSC2Api\Region::America ],
+            [ 'name' => \Depotwarehouse\BattleNetSC2Api\Region::Europe ]
+        ]);
+
+        $this->command->info("Seeded Europe and America Regions!");
+
         Model::reguard();
     }
 }

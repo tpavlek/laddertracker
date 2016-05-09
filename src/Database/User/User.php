@@ -4,6 +4,7 @@ namespace Depotwarehouse\LadderTracker\Database\User;
 
 use Depotwarehouse\LadderTracker\Database\Entity;
 use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetId;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetUrl;
 use Depotwarehouse\LadderTracker\ValueObjects\User\DisplayName;
@@ -27,7 +28,9 @@ class User extends Entity implements Arrayable
 
     protected $heroPoints;
 
-    public function __construct(UserId $id, DisplayName $display_name, BnetId $bnet_id, BnetUrl $bnet_url, Rank $rank, HeroPoints $heroPoints)
+    protected $region;
+
+    public function __construct(UserId $id, DisplayName $display_name, BnetId $bnet_id, BnetUrl $bnet_url, Rank $rank, HeroPoints $heroPoints, Region $region)
     {
         $this->id = $id;
         $this->display_name = $display_name;
@@ -35,6 +38,7 @@ class User extends Entity implements Arrayable
         $this->bnet_url = $bnet_url;
         $this->rank = $rank;
         $this->heroPoints = $heroPoints;
+        $this->region = $region;
     }
 
     /**
@@ -82,6 +86,11 @@ class User extends Entity implements Arrayable
         return $this->heroPoints;
     }
 
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
     /**
      * Get the instance as an array.
      *
@@ -96,7 +105,8 @@ class User extends Entity implements Arrayable
             'bnet_url' => $this->getBnetUrl()->serialize(),
             'ladder_rank' => $this->getRank()->getLadderRank(),
             'ladder_points' => $this->getRank()->getLadderPoints(),
-            'hero_points' => $this->getHeroPoints()->getPoints()
+            'hero_points' => $this->getHeroPoints()->getPoints(),
+            'region' => $this->region->toString()
         ];
     }
 }
