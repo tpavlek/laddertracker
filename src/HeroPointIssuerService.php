@@ -7,6 +7,7 @@ use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
 use Depotwarehouse\LadderTracker\Events\Heroes\MonthWasEndedEvent;
 use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointsChangedEvent;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
 use League\Event\Emitter;
 
@@ -24,10 +25,10 @@ class HeroPointIssuerService
         $this->emitter = $emitter;
     }
 
-    public function awardPoints()
+    public function awardPoints(Region $region)
     {
         $i = 1;
-        foreach ($this->userRepository->top(self::NUM_PLAYERS_AWARD_TO) as $user) {
+        foreach ($this->userRepository->top(self::NUM_PLAYERS_AWARD_TO, $region) as $user) {
             /** @var User $user */
             if (!$user->getRank()->isGrandmaster()) {
                 // We've exhausted the list of grandmaster level players, so we're done.

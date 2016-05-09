@@ -3,6 +3,7 @@
 namespace Depotwarehouse\LadderTracker\Commands;
 
 use Depotwarehouse\LadderTracker\HeroPointIssuerService;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 
 class AwardHeroPointsCommand
 {
@@ -14,9 +15,8 @@ class AwardHeroPointsCommand
         $this->heroPointIssuerService = $heroPointIssuerService;
     }
 
-    public function run()
+    public function run(Region $region)
     {
-        $this->heroPointIssuerService->awardPoints();
+        $this->heroPointIssuerService->awardPoints($region);
     }
-
 }

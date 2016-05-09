@@ -7,6 +7,7 @@ use Depotwarehouse\LadderTracker\Commands\AwardHeroPointsCommand;
 use Depotwarehouse\LadderTracker\Commands\EndMonthCommand;
 use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
@@ -25,9 +26,10 @@ class HeroPointController extends Controller
         return view('hero_points.award');
     }
 
-    public function award(AwardHeroPointsCommand $awardHeroPointsCommand)
+    public function award(AwardHeroPointsCommand $awardHeroPointsCommand, Request $input)
     {
-        $awardHeroPointsCommand->run();
+        $region = new Region($input->get('region'));
+        $awardHeroPointsCommand->run($region);
 
         return redirect()->route('admin.dashboard')->withErrors(new MessageBag([
             'success' => "Hero Points awarded! See you next week!"

@@ -38,4 +38,14 @@ class Region extends ValueObject
     {
         return (string)$this->region;
     }
+
+    public static function america()
+    {
+        return new self(\Depotwarehouse\BattleNetSC2Api\Region::America);
+    }
+
+    public static function europe()
+    {
+        return new self(\Depotwarehouse\BattleNetSC2Api\Region::Europe);
+    }
 }

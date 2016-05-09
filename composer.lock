@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b7f8b3117a472455421556ae7d5098e1",
-    "content-hash": "55177ab9f1bb70cd5b2b84a822869cd2",
+    "hash": "a241a98a9c1e00c232577ceef2490c87",
+    "content-hash": "a4edb4e935d2fb12db89426b9a503d12",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -1143,6 +1143,7 @@
                 "php",
                 "url"
             ],
+            "abandoned": "league/uri",
             "time": "2015-07-15 08:24:12"
         },
         {
@@ -1260,7 +1261,7 @@
                     "homepage": "https://github.com/mtdowling"
                 }
             ],
-            "description": "CRON for PHP: Calculate the next or previous register date and determine if a CRON expression is due",
+            "description": "CRON for PHP: Calculate the next or previous run date and determine if a CRON expression is due",
             "keywords": [
                 "cron",
                 "schedule"

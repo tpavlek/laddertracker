@@ -11,6 +11,7 @@ use League\Event\Emitter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class RegisterUserCommand extends Command
@@ -31,7 +32,7 @@ class RegisterUserCommand extends Command
 
         $this->addArgument('display_name', InputArgument::REQUIRED, "The user's preferred display name.");
         $this->addArgument('bnet_url', InputArgument::REQUIRED, "The link to the user's battle.net page.");
-        $this->addOption('region', 'r', null, "The region the user exists in [na or eu]", \Depotwarehouse\BattleNetSC2Api\Region::America);
+        $this->addOption('region', 'r', InputOption::VALUE_REQUIRED, "The region the user exists in [na or eu]", \Depotwarehouse\BattleNetSC2Api\Region::America);
     }
 
     public function execute(InputInterface $input, OutputInterface $output)

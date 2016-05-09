@@ -28,7 +28,8 @@
         "symfony/console": "^2.7",
         "laravel/framework": "5.2.*",
         "barryvdh/laravel-ide-helper": "^2.0",
-        "depotwarehouse/blumba": "^0.0.8"
+        "depotwarehouse/blumba": "^0.0.8",
+        "guzzlehttp/guzzle": "6.2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.7",
