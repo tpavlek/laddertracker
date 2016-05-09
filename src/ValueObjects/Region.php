@@ -39,6 +39,16 @@ class Region extends ValueObject
         return (string)$this->region;
     }
 
+    public function niceString()
+    {
+        $map = [
+            \Depotwarehouse\BattleNetSC2Api\Region::America => "North America",
+            \Depotwarehouse\BattleNetSC2Api\Region::Europe => "Europe"
+        ];
+
+        return $map[$this->region];
+    }
+
     public static function america()
     {
         return new self(\Depotwarehouse\BattleNetSC2Api\Region::America);

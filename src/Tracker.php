@@ -79,13 +79,13 @@ class Tracker
             new UserRepository($this->connection, new UserConstructor()),
             new ApiService($this->api_key, Region::America),
             $this->emitter
-        ))->update();
+        ))->update(\Depotwarehouse\LadderTracker\ValueObjects\Region::america());
 
         (new BNetApiSyncService(
             new UserRepository($this->connection, new UserConstructor()),
             new ApiService($this->api_key, Region::Europe),
             $this->emitter
-        ))->update();
+        ))->update(\Depotwarehouse\LadderTracker\ValueObjects\Region::europe());
     }
 
     private function getEventProjectors()

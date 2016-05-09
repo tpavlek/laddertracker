@@ -43,6 +43,17 @@ class UserRepository
         return $users;
     }
 
+    public function region(Region $region)
+    {
+        return collect($this->userTable()
+            ->where('region', '=', $region->serialize())
+            ->get()
+        )
+            ->map(function ($userData) {
+                return $this->userConstructor->createInstance((array)$userData);
+            });
+    }
+
     public function top($cutoff, Region $region, $sortBy = self::SORT_LADDER_RANK, $sortByType = 'ASC', $secondSort = self::SORT_HERO_POINTS_UPDATE)
     {
         return collect($this->userTable()

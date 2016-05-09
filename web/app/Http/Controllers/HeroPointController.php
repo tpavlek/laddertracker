@@ -37,7 +37,8 @@ class HeroPointController extends Controller
     }
 
     public function add(UserRepository $userRepository) {
-        $userList = $userRepository->all()->lists('display_name', 'id');
+        $userList = $userRepository->all()->pluck('display_name', 'id');
+
         return view('hero_points.add')->with('userList', $userList);
     }
 

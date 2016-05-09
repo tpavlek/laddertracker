@@ -9,6 +9,7 @@ use Depotwarehouse\LadderTracker\Database\User\UserRepository;
 use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Illuminate\Support\Collection;
 use League\Event\Emitter;
 
@@ -26,9 +27,9 @@ class BNetApiSyncService
         $this->emitter = $emitter;
     }
 
-    public function update()
+    public function update(Region $region)
     {
-        $playerList = $this->userRepository->all();
+        $playerList = $this->userRepository->region($region);
 
         foreach ($this->apiService->getGrandmasterInformation() as $grandmasterPlayer) {
             /** @var Player $grandmasterPlayer */

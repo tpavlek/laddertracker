@@ -37,11 +37,13 @@ class HomeController extends Controller
         return redirect()->to("http://www.teamliquid.net/forum/sc2-tournaments/487041-na-ladder-heroes");
     }
 
-    public function standings()
+    public function standings($region)
     {
-        // TODO standings per region
-        $users = $this->userRepository->top(20, UserRepository::SORT_HERO_POINTS, 'desc', UserRepository::SORT_HERO_POINTS_UPDATE);
-        return view('standings')->with('users', $users);
+        $region = new Region($region);
+        $users = $this->userRepository->top(20, $region, UserRepository::SORT_HERO_POINTS, 'desc', UserRepository::SORT_HERO_POINTS_UPDATE);
+        return view('standings')
+            ->with('users', $users)
+            ->with('region', $region);
     }
 
     public function history()

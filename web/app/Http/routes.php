@@ -1,7 +1,8 @@
 <?php
 
 Route::get('/', [ 'as' => 'home.index', 'uses' => 'HomeController@index' ]);
-Route::get('/standings', [ 'as' => 'home.standings', 'uses' => 'HomeController@standings' ]);
+Route::get('/standings', function() { return redirect()->route('standings', \Depotwarehouse\BattleNetSC2Api\Region::America); })->name('home.standings');
+Route::get('/standings/{region}', 'HomeController@standings')->name('standings');
 Route::get('/about', [ 'as' => 'home.about', 'uses' => 'HomeController@about' ]);
 Route::get('/history', [ 'as' => 'home.history', 'uses' => 'HomeController@history' ]);
 

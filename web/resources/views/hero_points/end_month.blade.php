@@ -19,6 +19,20 @@ End Month
                 the Hero Points of all participants to zero.
             </p>
 
+            <!-- Region Form Input -->
+            <div class="pure-control-group">
+                <label for="region">Region</label>
+                <select name="region" title="region">
+                    <option value="{{ \Depotwarehouse\LadderTracker\ValueObjects\Region::america()->toString() }}">
+                        {{ \Depotwarehouse\LadderTracker\ValueObjects\Region::america()->niceString() }}
+                    </option>
+
+                    <option value="{{ \Depotwarehouse\LadderTracker\ValueObjects\Region::europe()->toString() }}">
+                        {{ \Depotwarehouse\LadderTracker\ValueObjects\Region::europe()->niceString() }}
+                    </option>
+                </select>
+            </div>
+
             <div class="pure-controls">
                 <input type="submit" class="button success" value="End Month" />
             </div>
