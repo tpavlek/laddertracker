@@ -60,7 +60,7 @@ class HeroPointIssuerService
             return $user->getHeroPoints()->any() && $user->getRegion()->equals($region);
         });
 
-        $month = $monthConstructor->create([ 'users' => $users ]);
+        $month = $monthConstructor->create([ 'users' => $users, 'region' => $region]);
 
         $this->emitter->emit(new MonthWasEndedEvent($month));
         $this->resetPoints();

@@ -2,6 +2,7 @@
 
 namespace Depotwarehouse\LadderTracker\Database\User;
 
+use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\DatabaseManager;
@@ -52,6 +53,23 @@ class UserRepository
             ->map(function ($userData) {
                 return $this->userConstructor->createInstance((array)$userData);
             });
+    }
+
+    public function rankingChanges($cutoff, Region $region)
+    {
+        return $this->userTable()
+            ->where('region', '=', $region->toString())
+            ->orderBy(self::SORT_LADDER_RANK, 'ASC')
+            ->orderBy(self::SORT_HERO_POINTS_UPDATE, 'ASC')
+            ->join('laddertracker_events', 'laddertracker_events.aggregateId', '=', "laddertracker_users.id")
+            ->where('laddertracker_events.eventName', '=', RankChangedEvent::class)
+            ->select([ 'laddertracker_users.*', 'laddertracker_events.eventPayload as change' ])
+            ->take($cutoff)
+            ->get();
+
+        /*->map(function ($userData) {
+            return $this->userConstructor->createInstance((array)$userData);
+        });*/
     }
 
     public function top($cutoff, Region $region, $sortBy = self::SORT_LADDER_RANK, $sortByType = 'ASC', $secondSort = self::SORT_HERO_POINTS_UPDATE)

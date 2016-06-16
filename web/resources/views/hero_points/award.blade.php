@@ -15,6 +15,9 @@ Award Hero Points
                 players, based on their ladder ranking.
             </p>
 
+
+            @include('forms.regionSelectPartial')
+
             <div class="pure-controls">
                 <input type="submit" class="button success" value="Award Points" />
             </div>

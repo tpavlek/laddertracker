@@ -4,6 +4,7 @@ namespace Depotwarehouse\LadderTracker\Commands;
 
 use Depotwarehouse\LadderTracker\Database\Month\MonthConstructor;
 use Depotwarehouse\LadderTracker\HeroPointIssuerService;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 
 class EndMonthCommand
 {
@@ -17,9 +18,9 @@ class EndMonthCommand
         $this->heroPointIssuerService = $heroPointIssuerService;
     }
 
-    public function run()
+    public function run(Region $region)
     {
-        $this->heroPointIssuerService->endMonth($this->monthConstructor);
+        $this->heroPointIssuerService->endMonth($this->monthConstructor, $region);
     }
 
 

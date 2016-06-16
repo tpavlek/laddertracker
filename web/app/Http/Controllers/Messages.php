@@ -7,6 +7,7 @@ use Depotwarehouse\Blumba\Domain\DateTimeValue;
 use Depotwarehouse\LadderTracker\Commands\CreateMessageCommand;
 use Depotwarehouse\LadderTracker\Commands\ExpireMessagesCommand;
 use Depotwarehouse\LadderTracker\ValueObjects\Messaging\Message;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 
@@ -22,10 +23,11 @@ class Messages extends Controller
     {
         $messageText = $request->input('message');
         $expiry = $request->input('expires');
+        $region = $request->input('region');
 
         $message = new Message($messageText, new DateTimeValue(new Carbon($expiry)));
 
-        $createMessageCommand->run($message);
+        $createMessageCommand->run($message, new Region($region));
 
         return redirect()->route('admin.messages.create')
             ->withErrors(new MessageBag([

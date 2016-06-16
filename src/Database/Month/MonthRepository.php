@@ -7,6 +7,7 @@ use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserConstructor;
 use Depotwarehouse\LadderTracker\ValueObjects\Month\MonthEndDate;
 use Depotwarehouse\LadderTracker\ValueObjects\Month\MonthId;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Collection;
 
@@ -28,33 +29,37 @@ class MonthRepository
 
     public function all()
     {
-        $months = new Collection();
-        $monthGroups = (new Collection($this->monthTable->orderBy('end_date', 'DESC')->get()))->groupBy('month_id');
-        foreach ($monthGroups as $monthData) {
-
-            /** @var Collection $monthData */
-            if ($monthData->count()) {
+        return collect($this->monthTable->orderBy('end_date', 'DESC')->get())
+            ->groupBy('month_id')
+            ->filter(function (Collection $monthData) { return $monthData->count(); })
+            ->map(function (Collection $monthData) {
+                // $monthData takes the form of several user records associated with a month.
+                // The MonthID, EndDate and Region will be the same for all these records, so we take the first one.
                 $month_id = new MonthId($monthData->first()->month_id);
                 $month_end_date = new MonthEndDate(new Carbon($monthData->first()->end_date));
+                $region = new Region($monthData->first()->region);
 
-                $users = new Collection();
+                $users = collect($monthData)
+                    ->map(function ($userData) {
 
-                foreach ($monthData as $userData) {
-                    $user = $this->userConstructor->createInstance(
-                        array_only(
-                            (array)$userData,
-                            [ 'user_id', 'display_name', 'hero_points', 'bnet_id', 'bnet_url' ]
-                        ));
-                    $users->push($user);
-                }
+                        return $this->userConstructor->createInstance(
+                            array_only(
+                                (array)$userData,
+                                [ 'user_id', 'display_name', 'hero_points', 'bnet_id', 'bnet_url' ]
+                            )
+                        );
 
-                $users = $users->sortByDesc(function(User $user) { return $user->getHeroPoints()->getPoints(); } )->values();
+                    })
+                    ->sortByDesc(function(User $user) { return $user->getHeroPoints()->getPoints(); } )
+                    ->values();
 
-                $months->push($this->monthConstructor->createInstance([ 'id' => $month_id, 'end_date' => $month_end_date, 'users' => $users]));
-            }
-        }
+                return $this->monthConstructor->createInstance([ 'id' => $month_id, 'end_date' => $month_end_date, 'users' => $users, 'region' => $region ]);
 
-        return $months;
+            })
+            ->sortByDesc(function (Month $month) {
+                return $month->getEndDate()->serialize();
+            })
+            ->values();
     }
 
 }

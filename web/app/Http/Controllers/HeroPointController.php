@@ -32,7 +32,7 @@ class HeroPointController extends Controller
         $awardHeroPointsCommand->run($region);
 
         return redirect()->route('admin.dashboard')->withErrors(new MessageBag([
-            'success' => "Hero Points awarded! See you next week!"
+            'success' => "Hero Points awarded for {$region->niceString()}! See you next week!"
         ]));
     }
 
@@ -58,12 +58,13 @@ class HeroPointController extends Controller
         return view('hero_points.end_month');
     }
 
-    public function endMonth(EndMonthCommand $endMonthCommand)
+    public function endMonth(EndMonthCommand $endMonthCommand, Request $input)
     {
-        $endMonthCommand->run();
+        $region = new Region($input->get('region'));
+        $endMonthCommand->run($region);
 
         return redirect()->route('admin.dashboard')->withErrors(new MessageBag([
-            'success' => "Month has ended! See you next month!"
+            'success' => "Month has ended for {$region->niceString()}! See you next month!"
         ]));
     }
 

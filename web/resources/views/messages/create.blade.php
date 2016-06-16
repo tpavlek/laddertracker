@@ -17,6 +17,11 @@
             </div>
 
             <p>
+                <strong>Note:</strong> the most recent message from either region will display on the front page.
+            </p>
+            @include('forms.regionSelectPartial')
+
+            <p>
                 <strong>Note:</strong> messages by default expire at midnight on the day you select (start of day)
             </p>
 

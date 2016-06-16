@@ -23,13 +23,15 @@ class HomeController extends Controller
 
     public function index()
     {
+
         $naUsers = $this->userRepository->top(25, Region::america(), UserRepository::SORT_LADDER_RANK);
         $euUsers = $this->userRepository->top(25, Region::europe(), UserRepository::SORT_LADDER_RANK);
 
         return view('index')
             ->with('naUsers', $naUsers)
             ->with('euUsers', $euUsers)
-            ->with('message', $this->messages->latest());
+            ->with('naMessage', $this->messages->latest(Region::america()))
+            ->with('euMessage', $this->messages->latest(Region::europe()));
     }
 
     public function about()

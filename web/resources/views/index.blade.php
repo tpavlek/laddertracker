@@ -5,9 +5,17 @@
 @stop
 
 @section('content')
-    @if(!$message->isEmpty())
+    @if(!$naMessage->isEmpty())
         <div class="notification success">
-            {!! $message !!}
+            <h2 style="color:darkblue;">North America</h2>
+            {!! $naMessage !!}
+        </div>
+    @endif
+
+    @if(!$euMessage->isEmpty())
+        <div class="notification success">
+            <h2 style="color:darkblue;">Europe</h2>
+            {!! $euMessage !!}
         </div>
     @endif
 
