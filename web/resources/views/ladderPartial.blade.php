@@ -1,5 +1,14 @@
 <div class="info-panel registered-users ladder-ranking">
     <h1>{{ $ladder_title or "Ladder Rankings" }}</h1>
+    @if($ladder_title == "Europe" && !$euMessage->isEmpty())
+        <div class="notification success">
+            {!! $euMessage !!}
+        </div>
+    @elseif($ladder_title == "North America" && !$naMessage->isEmpty())
+        <div class="notification success">
+            {!! $naMessage !!}
+        </div>
+    @endif
     <table>
         <thead>
         <tr>
