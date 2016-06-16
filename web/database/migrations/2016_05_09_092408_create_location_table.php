@@ -17,6 +17,8 @@ class CreateLocationTable extends Migration
 
             $table->primary('name');
         });
+
+        \DB::table('regions')->insert([ [ 'name' => 'na' ], [ 'name' => 'eu'] ]);
     }
 
     /**
