@@ -7,6 +7,7 @@ use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
 use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetId;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetUrl;
+use Depotwarehouse\LadderTracker\ValueObjects\User\ClanTag;
 use Depotwarehouse\LadderTracker\ValueObjects\User\DisplayName;
 use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
 use Depotwarehouse\LadderTracker\ValueObjects\User\UserId;
@@ -47,9 +48,14 @@ class UserConstructor extends EntityConstructor
 
     protected function newUserFromAttributesAndRank(array $attributes, Rank $rank)
     {
+        
+        if (!isset($attributes['clan_tag'])) {
+            $attributes['clan_tag'] = ClanTag::noClan();
+        }
 
         $user = new User(
             ($attributes['id'] instanceof UserId) ? $attributes['id'] : new UserId($attributes['id']),
+            ($attributes['clan_tag'] instanceof ClanTag) ? $attributes['clan_tag'] : new ClanTag($attributes['clan_tag']),
             ($attributes['display_name'] instanceof DisplayName) ? $attributes['display_name'] : new DisplayName($attributes['display_name']),
             ($attributes['bnet_id'] instanceof BnetId) ? $attributes['bnet_id'] : new BnetId($attributes['bnet_id']),
             ($attributes['bnet_url'] instanceof BnetUrl) ? $attributes['bnet_url'] : new BnetUrl($attributes['bnet_url']),

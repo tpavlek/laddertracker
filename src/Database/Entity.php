@@ -2,8 +2,6 @@
 
 namespace Depotwarehouse\LadderTracker\Database;
 
-use Rhumsaa\Uuid\Uuid;
-
 abstract class Entity implements \Depotwarehouse\LadderTracker\Database\Contracts\Entity
 {
 

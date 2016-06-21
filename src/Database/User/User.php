@@ -7,6 +7,7 @@ use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
 use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetId;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetUrl;
+use Depotwarehouse\LadderTracker\ValueObjects\User\ClanTag;
 use Depotwarehouse\LadderTracker\ValueObjects\User\DisplayName;
 use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
 use Depotwarehouse\LadderTracker\ValueObjects\User\UserId;
@@ -20,6 +21,7 @@ class User extends Entity implements Arrayable
 
     protected $id;
 
+    protected $clan_tag;
     protected $display_name;
     protected $bnet_url;
     protected $bnet_id;
@@ -30,9 +32,10 @@ class User extends Entity implements Arrayable
 
     protected $region;
 
-    public function __construct(UserId $id, DisplayName $display_name, BnetId $bnet_id, BnetUrl $bnet_url, Rank $rank, HeroPoints $heroPoints, Region $region)
+    public function __construct(UserId $id, ClanTag $clanTag, DisplayName $display_name, BnetId $bnet_id, BnetUrl $bnet_url, Rank $rank, HeroPoints $heroPoints, Region $region)
     {
         $this->id = $id;
+        $this->clan_tag = $clanTag;
         $this->display_name = $display_name;
         $this->bnet_id = $bnet_id;
         $this->bnet_url = $bnet_url;
@@ -54,6 +57,10 @@ class User extends Entity implements Arrayable
      */
     public function getDisplayName()
     {
+        if ($this->getClanTag()->exists()) {
+            return $this->getClanTag() . " " . $this->display_name;
+        }
+
         return $this->display_name;
     }
 
@@ -89,6 +96,11 @@ class User extends Entity implements Arrayable
     public function getRegion()
     {
         return $this->region;
+    }
+
+    public function getClanTag()
+    {
+        return $this->clan_tag;
     }
 
     /**

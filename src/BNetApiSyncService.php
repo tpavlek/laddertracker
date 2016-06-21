@@ -8,8 +8,10 @@ use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
 use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
+use Depotwarehouse\LadderTracker\Events\User\ClanTagChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
 use Depotwarehouse\LadderTracker\ValueObjects\Region;
+use Depotwarehouse\LadderTracker\ValueObjects\User\ClanTag;
 use Illuminate\Support\Collection;
 use League\Event\Emitter;
 
@@ -48,6 +50,11 @@ class BNetApiSyncService
                 if (!$matched_player->getRank()->rankEquals($grandmasterPlayerRank)) {
                     $this->emitter->emit(new RankChangedEvent($matched_player, $grandmasterPlayerRank));
                 }
+
+                // Has the user's clan tag changed?
+                if ($matched_player->getClanTag()->serialize() != "{$grandmasterPlayer->getClanTag()}") {
+                    $this->emitter->emit(new ClanTagChangedEvent($matched_player->getId(), new ClanTag($grandmasterPlayer->getClanTag())));
+                }
             }
         }
 
@@ -64,8 +71,6 @@ class BNetApiSyncService
                 if (!$player->getRank()->rankEquals($notInGrandmasterRank)) {
                     $this->emitter->emit(new RankChangedEvent($player, $notInGrandmasterRank));
                 }
-
-
             }
         }
     }
