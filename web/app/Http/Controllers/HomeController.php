@@ -34,9 +34,14 @@ class HomeController extends Controller
             ->with('euMessage', $this->messages->latest(Region::europe()));
     }
 
-    public function about()
+    public function about_na()
     {
         return redirect()->to("http://www.teamliquid.net/forum/sc2-tournaments/487041-na-ladder-heroes");
+    }
+
+    public function about_eu()
+    {
+        return redirect()->to("http://www.teamliquid.net/forum/sc2-tournaments/510361-eu-ladder-heroes");
     }
 
     public function standings($region)

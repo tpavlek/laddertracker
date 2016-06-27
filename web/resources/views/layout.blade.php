@@ -11,7 +11,13 @@
     <span class="title"><a href="/">Ladder Heroes</a></span>
     <ul>
         <li><a href="{{ URL::route('home.standings') }}">Standings</a></li>
-        <li><a href="{{ URL::route('home.about') }}">Signup</a></li>
+        <li class="has-children">
+            <a href="#" id="signupParent">Signup</a>
+            <ul class="pure-menu-children">
+                <li><a href="{{ URL::route('signup.na') }}">North America</a></li>
+                <li><a href="{{ URL::route('signup.eu') }}">Europe</a></li>
+            </ul>
+        </li>
         <li><a href="{{ URL::route('home.history') }}">History</a></li>
         <li><a href="http://www.patreon.com/feardragon64">Contribute</a></li>
 
@@ -23,5 +29,6 @@
 </nav>
 @include('vendor.toolbox.errors.errorPartial')
 @yield('content')
+
 </body>
 </html>

@@ -3,7 +3,9 @@
 Route::get('/', [ 'as' => 'home.index', 'uses' => 'HomeController@index' ]);
 Route::get('/standings', function() { return redirect()->route('standings', \Depotwarehouse\BattleNetSC2Api\Region::America); })->name('home.standings');
 Route::get('/standings/{region}', 'HomeController@standings')->name('standings');
-Route::get('/about', [ 'as' => 'home.about', 'uses' => 'HomeController@about' ]);
+Route::get('/about', [ 'as' => 'home.about', 'uses' => 'HomeController@about_na' ]);
+Route::get('/signup/' . \Depotwarehouse\BattleNetSC2Api\Region::America, 'HomeController@about_na')->name('signup.na');
+Route::get('/signup/' . \Depotwarehouse\BattleNetSC2Api\Region::Europe, 'HomeController@about_eu')->name('signup.eu');
 Route::get('/history', [ 'as' => 'home.history', 'uses' => 'HomeController@history' ]);
 
 Route::get('/login', [ 'as' => 'login', 'uses' => 'LoginController@login' ]);

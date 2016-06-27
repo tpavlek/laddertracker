@@ -132,7 +132,9 @@ a:not(.button):hover::after {
   bottom: -0.5rem;
   left: 0;
   right: 0;
-  width: 100%; }
+  width: 100%;
+  z-index: 20;
+}
 
 nav.nav-header {
   background: $navigation-background-color;
@@ -177,6 +179,36 @@ nav.nav-header {
 
     li:hover {
       cursor: pointer;
+    }
+
+    li.has-children {
+      ul {
+        display:none;
+        background: none;
+        padding-top:3em;
+
+        li {
+          padding: 1em;
+          display: block;
+          height: 2em;
+          background: #1C1C1A;
+        }
+      }
+
+      position:relative;
+    }
+
+    li.has-children::after {
+      content: "▼";
+      font-size: 65%;
+    }
+
+    li.has-children:hover {
+      ul { display: block; position: absolute; top: -6; left: -40; font-size: 18px; width: 15em; }
+    }
+
+    li.has-children ul:hover {
+      display: block; position: absolute; top: -6; left: -40; font-size: 18px; width: 15em;
     }
   }
 }
