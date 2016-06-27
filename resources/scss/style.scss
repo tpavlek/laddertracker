@@ -188,10 +188,13 @@ nav.nav-header {
         padding-top:3em;
 
         li {
-          padding: 1em;
+          padding-top: 1em;
           display: block;
           height: 2em;
           background: #1C1C1A;
+        }
+        li:last-child {
+          padding-bottom: 2em;
         }
       }
 
