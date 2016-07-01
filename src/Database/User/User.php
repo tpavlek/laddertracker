@@ -55,10 +55,10 @@ class User extends Entity implements Arrayable
     /**
      * @return DisplayName
      */
-    public function getDisplayName()
+    public function getDisplayName() : DisplayName
     {
         if ($this->getClanTag()->exists()) {
-            return $this->getClanTag() . " " . $this->display_name;
+            return new DisplayName($this->getClanTag() . " " . $this->display_name);
         }
 
         return $this->display_name;
@@ -67,7 +67,7 @@ class User extends Entity implements Arrayable
     /**
      * @return BnetUrl
      */
-    public function getBnetUrl()
+    public function getBnetUrl() : BnetUrl
     {
         return $this->bnet_url;
     }
@@ -75,7 +75,7 @@ class User extends Entity implements Arrayable
     /**
      * @return BnetId
      */
-    public function getBnetId()
+    public function getBnetId() : BnetId
     {
         return $this->bnet_id;
     }
@@ -83,22 +83,22 @@ class User extends Entity implements Arrayable
     /**
      * @return Rank
      */
-    public function getRank()
+    public function getRank() : Rank
     {
         return $this->rank;
     }
 
-    public function getHeroPoints()
+    public function getHeroPoints() : HeroPoints
     {
         return $this->heroPoints;
     }
 
-    public function getRegion()
+    public function getRegion() : Region
     {
         return $this->region;
     }
 
-    public function getClanTag()
+    public function getClanTag() : ClanTag
     {
         return $this->clan_tag;
     }
