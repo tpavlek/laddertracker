@@ -28,7 +28,6 @@ class MonthEndProjector extends Projector
             $data['user_id'] = $data['id'];
             $data['month_id'] = $month->getId()->toString();
             $data['end_date'] = $month->getEndDate()->toString();
-            $data['region'] = $month->region()->serialize();
             unset($data['id']);
             unset($data['ladder_rank']);
             unset($data['ladder_points']);

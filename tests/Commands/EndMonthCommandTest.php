@@ -2,13 +2,13 @@
 
 namespace Depotwarehouse\LadderTracker\Tests\Commands;
 
-
 use Carbon\Carbon;
 use Depotwarehouse\LadderTracker\Client\Web\Tests\TestCase;
 use Depotwarehouse\LadderTracker\Commands\EndMonthCommand;
 use Depotwarehouse\LadderTracker\Database\Month\MonthConstructor;
 use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointsChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Heroes\MonthWasEndedEvent;
 use Depotwarehouse\LadderTracker\Events\User\UserWasRegisteredEvent;
 use Depotwarehouse\LadderTracker\HeroPointIssuerService;
 use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
@@ -48,12 +48,24 @@ class EndMonthCommandTest extends TestCase
 
         $command->run(Region::europe());
 
+        $this->seeInDatabase('laddertracker_events', [
+            'eventName' => MonthWasEndedEvent::class,
+            'timestamp' => $now->toDateTimeString()
+        ]);
+
         $this->seeInDatabase('hero_points_month', [
             'end_date' => $now->toDateTimeString(),
             'region' => Region::europe()->serialize(),
             'user_id' => "9001",
             'bnet_id' => 9002,
             'hero_points' => 12
+        ]);
+
+        $this->seeInDatabase('laddertracker_events', [
+            'eventName' => HeroPointsChangedEvent::class,
+            'aggregateId' => 9001,
+            'eventPayload' => json_encode([ 'userId' => "9001", 'difference' => -12 ]),
+            'timestamp' => $now->toDateTimeString()
         ]);
     }
 
