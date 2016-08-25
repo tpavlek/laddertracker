@@ -14,6 +14,7 @@ use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
 use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetId;
 use Depotwarehouse\LadderTracker\ValueObjects\User\BnetUrl;
+use Depotwarehouse\LadderTracker\ValueObjects\User\ClanTag;
 use Depotwarehouse\LadderTracker\ValueObjects\User\DisplayName;
 use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
 use Depotwarehouse\LadderTracker\ValueObjects\User\UserId;
@@ -37,6 +38,7 @@ class TrackerTest extends TestCase
 
         $user = new User(
             $id,
+            new ClanTag("FGT"),
             new DisplayName("mock_user"),
             new BnetId(12345),
             new BnetUrl("http://mock-bnet-url.com"),

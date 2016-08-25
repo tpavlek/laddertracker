@@ -59,9 +59,10 @@ class Month extends Entity implements Arrayable
     public function toArray()
     {
         return [
-            'id' => $this->getId()->toString(),
-            'end_date' => $this->getEndDate()->toString(),
-            'users' => $this->getUsers()->toArray()
+            'id' => $this->getId()->serialize(),
+            'end_date' => $this->getEndDate()->serialize(),
+            'users' => $this->getUsers()->toArray(),
+            'region' => $this->region()->serialize()
         ];
     }
 }

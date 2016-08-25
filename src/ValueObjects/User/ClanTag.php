@@ -10,7 +10,7 @@ class ClanTag extends ValueObject
 
     protected $clan_tag;
 
-    public function __construct(string $clan_tag)
+    public function __construct($clan_tag)
     {
         $this->clan_tag = $clan_tag;
     }

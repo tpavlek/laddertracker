@@ -58,7 +58,8 @@ class HeroPointIssuerService
         // We only want to serialize users that have any hero points.
         $users = $users->filter(function (User $user) use ($region) {
             return $user->getHeroPoints()->any() && $user->getRegion()->equals($region);
-        });
+        })
+            ->values();
 
         $month = $monthConstructor->create([ 'users' => $users, 'region' => $region]);
 

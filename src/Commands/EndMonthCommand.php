@@ -22,6 +22,4 @@ class EndMonthCommand
     {
         $this->heroPointIssuerService->endMonth($this->monthConstructor, $region);
     }
-
-
 }
