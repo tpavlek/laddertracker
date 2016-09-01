@@ -69,4 +69,25 @@ class EndMonthCommandTest extends TestCase
         ]);
     }
 
+    /**
+     * @test
+     */
+    public function ending_a_na_month_does_not_affect_eu_standings()
+    {
+        $emitter = $this->app->make(Emitter::class);
+
+        $naUser = new User(new UserId(9000), new ClanTag("SC2CTL"), new DisplayName("NA_User"), new BnetId(9000), new BnetUrl('http://battle.net/na_user'), new Rank(1, 900), HeroPoints::none(), Region::america());
+        $euUser = new User(new UserId(9001), new ClanTag("SC2CTL"), new DisplayName("Mock_User"), new BnetId(9002), new BnetUrl('http://battle.net/some_user'), new Rank(4, 600), HeroPoints::none(), Region::europe());
+
+        $emitter->emit(new UserWasRegisteredEvent($naUser));
+        $emitter->emit(new UserWasRegisteredEvent($euUser));
+        $emitter->emit(new HeroPointsChangedEvent($naUser, new HeroPoints(20)));
+        $emitter->emit(new HeroPointsChangedEvent($euUser, new HeroPoints(12)));
+
+        $command = new EndMonthCommand($this->app->make(HeroPointIssuerService::class), new MonthConstructor());
+
+        $command->run(Region::america());
+
+        $this->seeInDatabase('laddertracker_users', [ 'id' => 9001, 'hero_points' => 12 ]);
+    }
 }

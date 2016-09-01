@@ -41,16 +41,6 @@ class HeroPointIssuerService
         }
     }
 
-    public function resetPoints()
-    {
-        foreach($this->userRepository->all() as $user) {
-            /** @var User $user */
-            if ($user->getHeroPoints()->getPoints() > 0) {
-                $this->emitter->emit(new HeroPointsChangedEvent($user, $user->getHeroPoints()->invert()));
-            }
-        }
-    }
-
     public function endMonth(MonthConstructor $monthConstructor, Region $region)
     {
         $users = $this->userRepository->all();
@@ -64,7 +54,11 @@ class HeroPointIssuerService
         $month = $monthConstructor->create([ 'users' => $users, 'region' => $region]);
 
         $this->emitter->emit(new MonthWasEndedEvent($month));
-        $this->resetPoints();
+
+        // We need to reset the points for all users affected by this month end.
+        $users->each(function (User $user) {
+            $this->emitter->emit(new HeroPointsChangedEvent($user, $user->getHeroPoints()->invert()));
+        });
     }
 
     private function getPointsForPlacing($placement)
