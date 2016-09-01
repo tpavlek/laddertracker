@@ -104,7 +104,7 @@ class UserRepository
         $result = $this->connection->table('laddertracker_events')
             ->where('aggregateId', '=', $userId)
             ->where('eventName', '=', RankChangedEvent::class)
-            ->select([ \DB::raw('max(timestamp) as timestamp') ])
+            ->select([ $this->connection->raw('max(timestamp) as timestamp') ])
             ->first();
 
         return new Carbon($result->timestamp);
