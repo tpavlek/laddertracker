@@ -3,6 +3,7 @@
 namespace Depotwarehouse\LadderTracker\Database\User;
 
 use Carbon\Carbon;
+use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Illuminate\Database\ConnectionInterface;
@@ -103,7 +104,7 @@ class UserRepository
     {
         $result = $this->connection->table('laddertracker_events')
             ->where('aggregateId', '=', $userId)
-            ->where('eventName', '=', RankChangedEvent::class)
+            ->where('eventName', '=', PointsChangedEvent::class)
             ->select([ $this->connection->raw('max(timestamp) as timestamp') ])
             ->first();
 
