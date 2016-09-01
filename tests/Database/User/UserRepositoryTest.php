@@ -2,11 +2,27 @@
 
 namespace Depotwarehouse\LadderTracker\Tests\IntegrationTests\Database\User;
 
+use Carbon\Carbon;
+use Depotwarehouse\LadderTracker\Client\Web\Tests\TestCase;
+use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserConstructor;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
+use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
+use Depotwarehouse\LadderTracker\Events\User\UserWasRegisteredEvent;
+use Depotwarehouse\LadderTracker\Tests\ScenarioTest;
+use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
+use Depotwarehouse\LadderTracker\ValueObjects\Region;
+use Depotwarehouse\LadderTracker\ValueObjects\User\BnetId;
+use Depotwarehouse\LadderTracker\ValueObjects\User\BnetUrl;
+use Depotwarehouse\LadderTracker\ValueObjects\User\ClanTag;
+use Depotwarehouse\LadderTracker\ValueObjects\User\DisplayName;
+use Depotwarehouse\LadderTracker\ValueObjects\User\HeroPoints;
+use Depotwarehouse\LadderTracker\ValueObjects\User\UserId;
 use Illuminate\Database\Capsule\Manager;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use League\Event\Emitter;
 
-class UserRepositoryTest extends \PHPUnit_Framework_TestCase
+class UserRepositoryTest extends ScenarioTest
 {
 
     public function setUp()
@@ -19,29 +35,36 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         parent::tearDown();
     }
 
-    public function test_it_retrieves_all_records()
+    /**
+     * @test
+     */
+    public function it_retrieves_the_last_played_game_date()
     {
-        //TODO make this test useful
+        Carbon::setTestNow(new Carbon("2016-07-02"));
 
-        $this->assertTrue(true);
-        /*$capsule = new Manager();
-        $capsule->addConnection([
-            'driver' => 'mysql',
-            'host' => 'localhost',
-            'database' => 'ladderheroes',
-            'username' => 'root',
-            'password' => 'green',
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix' => '',
-        ]);
+        $user = new User(new UserId(9001),
+            new ClanTag("SC2CTL"),
+            new DisplayName("mock_user"),
+            new BnetId(9001),
+            new BnetUrl('http://battle.net/some_user'),
+            Rank::userIsRankedWithPoints(2, 799),
+            HeroPoints::none(),
+            Region::europe()
+        );
 
-        $userRepository = new UserRepository($capsule->getConnection('default'), new UserConstructor());
+        Carbon::setTestNow(new Carbon('2016-07-25'));
 
-        $users = $userRepository->all();
+        $this->scenario(
+            new UserWasRegisteredEvent($user),
+            new RankChangedEvent($user, Rank::userIsRankedWithPoints(3, 759))
+        );
 
-        $this->assertEquals(2, $users->count());
-        $this->assertEquals(4, $users->first()->getRank()->getLadderRank());*/
+        Carbon::setTestNow(new Carbon('2016-08-13'));
+
+        /** @var UserRepository $repository */
+        $repository = $this->app->make(UserRepository::class);
+        $dbUser = $repository->find(9001);
+
+        $this->assertTrue($dbUser->lastPlayed()->eq(new Carbon('2016-07-25')));
     }
-
 }

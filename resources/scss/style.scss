@@ -57,10 +57,15 @@ body::after {
   tr { text-align: left;}
 
   td, tr {
-    color: whitesmoke !important;
+    color: whitesmoke;
   }
 
 
+}
+
+.stale {
+  background: #3b3e3e;
+  position:relative;
 }
 
 .info-panel {

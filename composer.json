@@ -11,6 +11,7 @@
     "autoload": {
         "psr-4": {
             "Depotwarehouse\\LadderTracker\\": "src/",
+            "Depotwarehouse\\LadderTracker\\Tests\\": "tests/",
             "Depotwarehouse\\LadderTracker\\Client\\Web\\": "web/app/",
             "Depotwarehouse\\LadderTracker\\Client\\Web\\Tests\\": "web/tests/"
         },

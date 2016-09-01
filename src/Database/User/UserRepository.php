@@ -33,14 +33,18 @@ class UserRepository
     public function find($id)
     {
         $userData = $this->userTable()->find($id);
-        return $this->userConstructor->createInstance((array)$userData);
+        return $this->userConstructor->createInstance(
+            array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData->id) ])
+        );
     }
 
     public function all()
     {
         $users = new Collection();
         foreach ($this->userTable()->select()->get() as $userData) {
-            $users->push($this->userConstructor->createInstance((array)$userData));
+            $users->push($this->userConstructor->createInstance(
+                array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData->id) ])
+            ));
         }
 
         return $users;
@@ -53,7 +57,9 @@ class UserRepository
             ->get()
         )
             ->map(function ($userData) {
-                return $this->userConstructor->createInstance((array)$userData);
+                return $this->userConstructor->createInstance(
+                    array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData->id) ])
+                );
             });
     }
 
