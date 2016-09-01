@@ -2,6 +2,7 @@
 
 namespace Depotwarehouse\LadderTracker\Database\User;
 
+use Carbon\Carbon;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\Region;
 use Illuminate\Database\ConnectionInterface;
@@ -81,7 +82,9 @@ class UserRepository
             ->take($cutoff)
             ->get()
         )->map(function ($userData) {
-            return $this->userConstructor->createInstance((array)$userData);
+            return $this->userConstructor->createInstance(
+                array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData->id) ] )
+            );
         });
     }
 
@@ -89,5 +92,17 @@ class UserRepository
     {
         return $this->connection->table(self::USERS_TABLE_NAME);
     }
+
+    private function lastPlayedGame($userId)
+    {
+        $result = $this->connection->table('laddertracker_events')
+            ->where('aggregateId', '=', $userId)
+            ->where('eventName', '=', RankChangedEvent::class)
+            ->select([ \DB::raw('max(timestamp) as timestamp') ])
+            ->first();
+
+        return new Carbon($result->timestamp);
+    }
+
 
 }

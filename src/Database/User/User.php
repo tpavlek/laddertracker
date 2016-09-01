@@ -2,6 +2,7 @@
 
 namespace Depotwarehouse\LadderTracker\Database\User;
 
+use Carbon\Carbon;
 use Depotwarehouse\LadderTracker\Database\Entity;
 use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
 use Depotwarehouse\LadderTracker\ValueObjects\Region;
@@ -32,7 +33,9 @@ class User extends Entity implements Arrayable
 
     protected $region;
 
-    public function __construct(UserId $id, ClanTag $clanTag, DisplayName $display_name, BnetId $bnet_id, BnetUrl $bnet_url, Rank $rank, HeroPoints $heroPoints, Region $region)
+    protected $lastPlayed;
+
+    public function __construct(UserId $id, ClanTag $clanTag, DisplayName $display_name, BnetId $bnet_id, BnetUrl $bnet_url, Rank $rank, HeroPoints $heroPoints, Region $region, Carbon $lastPlayed = null)
     {
         $this->id = $id;
         $this->clan_tag = $clanTag;
@@ -42,6 +45,12 @@ class User extends Entity implements Arrayable
         $this->rank = $rank;
         $this->heroPoints = $heroPoints;
         $this->region = $region;
+
+        if ($lastPlayed === null) {
+            $lastPlayed = Carbon::now();
+        }
+
+        $this->lastPlayed = $lastPlayed;
     }
 
     /**
@@ -101,6 +110,11 @@ class User extends Entity implements Arrayable
     public function getClanTag() : ClanTag
     {
         return $this->clan_tag;
+    }
+
+    public function lastPlayed() : Carbon
+    {
+        return $this->lastPlayed;
     }
 
     /**

@@ -19,9 +19,9 @@
         </thead>
         <tbody>
         @forelse ($users as $index => $user)
-            <tr>
+            <tr @if (\Carbon\Carbon::now()->subWeek()->gt($user->lastPlayed())) style="color:red;" @endif>
                 <td>{{ $index + 1 }}.</td>
-                <td><a href="{{ $user->getBnetUrl() }}">{{ $user->getDisplayName() }}</a></td>
+                <td><a href="{{ $user->getBnetUrl() }}">{{ $user->getDisplayName() }}</a> @if (\Carbon\Carbon::now()->subWeek()->gt($user->lastPlayed())) TOO SLOW 2 PLAY @endif</td>
                 <td>@if($user->getRank()->getLadderRank() > 0 && $user->getRank()->getLadderRank() < 201) <strong>{{ $user->getRank()->getLadderRank() }}</strong> ({{ $user->getRank()->getLadderPoints() }} points) @else - @endif</td>
             </tr>
         @empty

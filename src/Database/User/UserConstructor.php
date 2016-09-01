@@ -53,6 +53,7 @@ class UserConstructor extends EntityConstructor
             $attributes['clan_tag'] = ClanTag::noClan();
         }
 
+
         $user = new User(
             ($attributes['id'] instanceof UserId) ? $attributes['id'] : new UserId($attributes['id']),
             ($attributes['clan_tag'] instanceof ClanTag) ? $attributes['clan_tag'] : new ClanTag($attributes['clan_tag']),
@@ -61,7 +62,8 @@ class UserConstructor extends EntityConstructor
             ($attributes['bnet_url'] instanceof BnetUrl) ? $attributes['bnet_url'] : new BnetUrl($attributes['bnet_url']),
             $rank,
             ($attributes['hero_points'] instanceof HeroPoints) ? $attributes['hero_points'] : new HeroPoints($attributes['hero_points']),
-            ($attributes['region'] instanceof Region) ? $attributes['region'] : new Region($attributes['region'])
+            ($attributes['region'] instanceof Region) ? $attributes['region'] : new Region($attributes['region']),
+            ($attributes['last_played_game'] ?? null)
         );
 
         return $user;
