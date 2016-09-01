@@ -7,6 +7,7 @@ use Depotwarehouse\LadderTracker\Client\Web\Tests\TestCase;
 use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserConstructor;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
+use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
 use Depotwarehouse\LadderTracker\Events\User\UserWasRegisteredEvent;
 use Depotwarehouse\LadderTracker\Tests\ScenarioTest;
@@ -56,7 +57,7 @@ class UserRepositoryTest extends ScenarioTest
 
         $this->scenario(
             new UserWasRegisteredEvent($user),
-            new RankChangedEvent($user, Rank::userIsRankedWithPoints(3, 759))
+            new PointsChangedEvent($user, Rank::userIsRankedWithPoints(3, 759))
         );
 
         Carbon::setTestNow(new Carbon('2016-08-13'));
