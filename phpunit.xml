@@ -13,6 +13,7 @@
     <testsuites>
         <testsuite name="Application Test Suite">
             <directory>tests/</directory>
+            <exclude>tests/ScenarioTest.php</exclude>
         </testsuite>
         <testsuite name="Web Test Suite">
             <directory>web/tests/</directory>
