@@ -24,8 +24,8 @@ class HomeController extends Controller
     public function index()
     {
 
-        $naUsers = $this->userRepository->top(25, Region::america(), UserRepository::SORT_LADDER_POINTS, 'DESC');
-        $euUsers = $this->userRepository->top(25, Region::europe(), UserRepository::SORT_LADDER_POINTS, 'DESC');
+        $naUsers = $this->userRepository->top(30, Region::america(), UserRepository::SORT_LADDER_POINTS, 'DESC');
+        $euUsers = $this->userRepository->top(30, Region::europe(), UserRepository::SORT_LADDER_POINTS, 'DESC');
 
         return view('index')
             ->with('naUsers', $naUsers)
