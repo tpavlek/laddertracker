@@ -17,8 +17,6 @@ class CreateLocationTable extends Migration
 
             $table->primary('name');
         });
-
-        \DB::table('regions')->insert([ [ 'name' => \Depotwarehouse\BattleNetSC2Api\Region::America ], [ 'name' => \Depotwarehouse\BattleNetSC2Api\Region::Europe ] ]);
     }
 
     /**
