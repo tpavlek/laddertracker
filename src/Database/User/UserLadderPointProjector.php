@@ -4,6 +4,7 @@ namespace Depotwarehouse\LadderTracker\Database\User;
 
 use Depotwarehouse\Blumba\ReadModel\Projector;
 use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Ladder\UserDroppedOutOfGrandmasterEvent;
 use Illuminate\Database\ConnectionInterface;
 
 class UserLadderPointProjector extends Projector
@@ -18,8 +19,15 @@ class UserLadderPointProjector extends Projector
 
     public function projectPointsChanged(PointsChangedEvent $event)
     {
-        if (!$this->thereIsADifference($event)) { return; }
+        if (!$this->thereIsADifference($event)) {
+            return;
+        }
         $this->userTable->where('id', '=', $event->getPayload()['userId'])->increment('ladder_points', $event->getPayload()['difference']);
+    }
+
+    public function projectUserDroppedOutOfGrandmaster(UserDroppedOutOfGrandmasterEvent $event)
+    {
+        $this->userTable->where('id', '=', $event->getUser()->getId()->serialize())->update([ 'ladder_points' => 0 ]);
     }
 
     /**

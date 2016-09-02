@@ -4,6 +4,7 @@ namespace Depotwarehouse\LadderTracker\Database\User;
 
 use Depotwarehouse\Blumba\ReadModel\Projector;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Ladder\UserDroppedOutOfGrandmasterEvent;
 use Illuminate\Database\ConnectionInterface;
 
 class UserRankProjector extends Projector
@@ -21,5 +22,12 @@ class UserRankProjector extends Projector
         $this->userTable
             ->where('id', '=', $event->getPayload()['userId'])
             ->decrement('ladder_rank', $event->difference());
+    }
+
+    public function projectUserDroppedOutOfGrandmaster(UserDroppedOutOfGrandmasterEvent $event)
+    {
+        $this->userTable
+            ->where('id', '=', $event->getUser()->getId()->serialize())
+            ->update([ 'ladder_rank' => 201 ]);
     }
 }

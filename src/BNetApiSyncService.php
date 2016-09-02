@@ -8,6 +8,7 @@ use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
 use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Ladder\UserDroppedOutOfGrandmasterEvent;
 use Depotwarehouse\LadderTracker\Events\User\ClanTagChangedEvent;
 use Depotwarehouse\LadderTracker\ValueObjects\Ladder\Rank;
 use Depotwarehouse\LadderTracker\ValueObjects\Region;
@@ -34,6 +35,7 @@ class BNetApiSyncService
         $playerList = $this->userRepository->region($region);
 
         foreach ($this->apiService->getGrandmasterInformation() as $grandmasterPlayer) {
+
             /** @var Player $grandmasterPlayer */
 
             $matched_player = $this->popLocallyTrackedPlayerFromCollection($playerList, $grandmasterPlayer);
@@ -61,15 +63,10 @@ class BNetApiSyncService
         // If there are any players left in our player list, than those players are no longer in grandmaster.
         if ($playerList->count()) {
             foreach ($playerList as $player) {
-                $notInGrandmasterRank = Rank::userIsNotInGrandmaster();
                 /** @var User $player */
 
-                if (!$player->getRank()->pointsEquals($notInGrandmasterRank)) {
-                    $this->emitter->emit(new PointsChangedEvent($player, $notInGrandmasterRank));
-                }
-
-                if (!$player->getRank()->rankEquals($notInGrandmasterRank)) {
-                    $this->emitter->emit(new RankChangedEvent($player, $notInGrandmasterRank));
+                if ($player->getRank()->isGrandmaster()) {
+                    $this->emitter->emit(new UserDroppedOutOfGrandmasterEvent($player));
                 }
             }
         }

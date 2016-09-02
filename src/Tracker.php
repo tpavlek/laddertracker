@@ -17,6 +17,7 @@ use Depotwarehouse\LadderTracker\Events\Heroes\MonthWasEndedEvent;
 use Depotwarehouse\LadderTracker\Events\Heroes\HeroPointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\RankChangedEvent;
+use Depotwarehouse\LadderTracker\Events\Ladder\UserDroppedOutOfGrandmasterEvent;
 use Depotwarehouse\LadderTracker\Events\User\ClanTagChangedEvent;
 use Depotwarehouse\LadderTracker\Events\User\UserWasRegisteredEvent;
 use Illuminate\Database\Capsule\Manager;
@@ -86,6 +87,10 @@ class Tracker
             ],
             PointsChangedEvent::class => [
                 UserLadderPointProjector::class,
+            ],
+            UserDroppedOutOfGrandmasterEvent::class => [
+                UserLadderPointProjector::class,
+                UserRankProjector::class,
             ],
             RankChangedEvent::class => [
                 UserRankProjector::class
