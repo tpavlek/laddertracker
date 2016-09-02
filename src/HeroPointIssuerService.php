@@ -28,7 +28,7 @@ class HeroPointIssuerService
     public function awardPoints(Region $region)
     {
         $i = 1;
-        foreach ($this->userRepository->top(self::NUM_PLAYERS_AWARD_TO, $region, UserRepository::SORT_LADDER_POINTS) as $user) {
+        foreach ($this->userRepository->top(self::NUM_PLAYERS_AWARD_TO, $region, UserRepository::SORT_LADDER_POINTS, 'DESC') as $user) {
             /** @var User $user */
             if (!$user->getRank()->isGrandmaster()) {
                 // We've exhausted the list of grandmaster level players, so we're done.
