@@ -80,7 +80,7 @@ class UserRepository
         });*/
     }
 
-    public function top($cutoff, Region $region, $sortBy = self::SORT_LADDER_RANK, $sortByType = 'ASC', $secondSort = self::SORT_HERO_POINTS_UPDATE)
+    public function top($cutoff, Region $region, $sortBy = self::SORT_LADDER_POINTS, $sortByType = 'ASC', $secondSort = self::SORT_HERO_POINTS_UPDATE)
     {
         return collect($this->userTable()
             ->where('region', '=', $region->toString())
