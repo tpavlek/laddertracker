@@ -10,7 +10,7 @@ date_default_timezone_set(getenv('DEFAULT_TIMEZONE'));
 $capsule = new Manager();
 $capsule->addConnection([
     'driver' => 'mysql',
-    'host' => 'localhost',
+    'host' => getenv('DATABASE_HOST'),
     'database' => getenv('DATABASE_NAME'),
     'username' => getenv('DATABASE_USERNAME'),
     'password' => getenv('DATABASE_PASSWORD'),
