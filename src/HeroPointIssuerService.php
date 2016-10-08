@@ -2,6 +2,7 @@
 
 namespace Depotwarehouse\LadderTracker;
 
+use Carbon\Carbon;
 use Depotwarehouse\LadderTracker\Database\Month\MonthConstructor;
 use Depotwarehouse\LadderTracker\Database\User\User;
 use Depotwarehouse\LadderTracker\Database\User\UserRepository;
@@ -30,7 +31,7 @@ class HeroPointIssuerService
         $i = 1;
         foreach ($this->userRepository->top(self::NUM_PLAYERS_AWARD_TO, $region, UserRepository::SORT_LADDER_POINTS, 'DESC') as $user) {
             /** @var User $user */
-            if ($user->lastPlayedGame < strtotime('-7 days')) {
+            if ($user->lastPlayed()->lt(Carbon::now()->subDays(7))) {
                 continue;
             }
             if (!$user->getRank()->isGrandmaster()) {
