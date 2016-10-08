@@ -30,6 +30,9 @@ class HeroPointIssuerService
         $i = 1;
         foreach ($this->userRepository->top(self::NUM_PLAYERS_AWARD_TO, $region, UserRepository::SORT_LADDER_POINTS, 'DESC') as $user) {
             /** @var User $user */
+            if ($user->lastPlayedGame < strtotime('-7 days')) {
+                continue;
+            }
             if (!$user->getRank()->isGrandmaster()) {
                 // We've exhausted the list of grandmaster level players, so we're done.
                 return;
