@@ -23,6 +23,8 @@ Using The System
 Any system controls that can be done in the web interface, can also be done via the command line. Run `php console.php` for
 a list of commands and their descriptions.
 
+To update the ladder id, change the static variables in `vendor/depotwarehouse/bnet-sc2-api/src/Apiservice.php`.
+
 Testing
 ---------
 
