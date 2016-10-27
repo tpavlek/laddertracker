@@ -103,7 +103,7 @@ class UserRepository
     private function lastPlayedGame($userData)
     {
         if(! $userData->last_game) {
-            return Carbon::createFromDate(null, 1, 1);
+            return Carbon::createFromDate(null, 10, 26);
         }
         return new Carbon($userData->last_game);
     }
