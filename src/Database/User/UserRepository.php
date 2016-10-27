@@ -34,7 +34,7 @@ class UserRepository
     {
         $userData = $this->userTable()->find($id);
         return $this->userConstructor->createInstance(
-            array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData->id) ])
+            array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData) ])
         );
     }
 
@@ -43,7 +43,7 @@ class UserRepository
         $users = new Collection();
         foreach ($this->userTable()->select()->get() as $userData) {
             $users->push($this->userConstructor->createInstance(
-                array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData->id) ])
+                array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData) ])
             ));
         }
 
@@ -58,7 +58,7 @@ class UserRepository
         )
             ->map(function ($userData) {
                 return $this->userConstructor->createInstance(
-                    array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData->id) ])
+                    array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData) ])
                 );
             });
     }
