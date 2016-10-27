@@ -2,6 +2,7 @@
 
 namespace Depotwarehouse\LadderTracker\Database\User;
 
+use Carbon\Carbon;
 use Depotwarehouse\Blumba\ReadModel\Projector;
 use Depotwarehouse\LadderTracker\Events\Ladder\PointsChangedEvent;
 use Depotwarehouse\LadderTracker\Events\Ladder\UserDroppedOutOfGrandmasterEvent;
@@ -22,7 +23,9 @@ class UserLadderPointProjector extends Projector
         if (!$this->thereIsADifference($event)) {
             return;
         }
-        $this->userTable->where('id', '=', $event->getPayload()['userId'])->increment('ladder_points', $event->getPayload()['difference']);
+        $user = $this->userTable->where('id', '=', $event->getPayload()['userId']);
+        $user->increment('ladder_points', $event->getPayload()['difference']);
+        $user->update(['last_game' => Carbon::now()->toDateTimeString()]);
     }
 
     public function projectUserDroppedOutOfGrandmaster(UserDroppedOutOfGrandmasterEvent $event)

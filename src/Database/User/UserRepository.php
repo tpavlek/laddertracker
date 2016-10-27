@@ -90,7 +90,7 @@ class UserRepository
             ->get()
         )->map(function ($userData) {
             return $this->userConstructor->createInstance(
-                array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData->id) ] )
+                array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData) ] )
             );
         });
     }
@@ -100,15 +100,12 @@ class UserRepository
         return $this->connection->table(self::USERS_TABLE_NAME);
     }
 
-    private function lastPlayedGame($userId)
+    private function lastPlayedGame($userData)
     {
-        $result = $this->connection->table('laddertracker_events')
-            ->where('aggregateId', '=', $userId)
-            ->where('eventName', '=', PointsChangedEvent::class)
-            ->select([ $this->connection->raw('max(timestamp) as timestamp') ])
-            ->first();
-
-        return new Carbon($result->timestamp);
+        if(! $userData->last_game) {
+            return Carbon::createFromDate(null, 1, 1);
+        }
+        return new Carbon($userData->last_game);
     }
 
 
