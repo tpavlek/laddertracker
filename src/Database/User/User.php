@@ -125,6 +125,11 @@ class User extends Entity implements Arrayable
     {
         return $this->lastChange;
     }
+    public function getTimeSinceLastGame()
+    {
+        $current_time = Carbon::now();
+        return $this->lastPlayed->diffForHumans($current_time, true);
+    }
 
     /**
      * Get the instance as an array.
