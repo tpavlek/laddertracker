@@ -52,6 +52,9 @@ class UserConstructor extends EntityConstructor
         if (!isset($attributes['clan_tag'])) {
             $attributes['clan_tag'] = ClanTag::noClan();
         }
+        if (!isset($attributes['last_change'])) {
+            $attributes['last_change'] = 0;
+        }
 
 
         $user = new User(
@@ -64,7 +67,7 @@ class UserConstructor extends EntityConstructor
             ($attributes['hero_points'] instanceof HeroPoints) ? $attributes['hero_points'] : new HeroPoints($attributes['hero_points']),
             ($attributes['region'] instanceof Region) ? $attributes['region'] : new Region($attributes['region']),
             ($attributes['last_played_game'] ?? null),
-            (0)
+            ($attributes['last_change'])
         );
 
         return $user;
