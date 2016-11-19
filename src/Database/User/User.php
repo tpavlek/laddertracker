@@ -34,8 +34,9 @@ class User extends Entity implements Arrayable
     protected $region;
 
     protected $lastPlayed;
+    protected $lastChange;
 
-    public function __construct(UserId $id, ClanTag $clanTag, DisplayName $display_name, BnetId $bnet_id, BnetUrl $bnet_url, Rank $rank, HeroPoints $heroPoints, Region $region, Carbon $lastPlayed = null)
+    public function __construct(UserId $id, ClanTag $clanTag, DisplayName $display_name, BnetId $bnet_id, BnetUrl $bnet_url, Rank $rank, HeroPoints $heroPoints, Region $region, Carbon $lastPlayed = null, $lastChange)
     {
         $this->id = $id;
         $this->clan_tag = $clanTag;
@@ -49,8 +50,12 @@ class User extends Entity implements Arrayable
         if ($lastPlayed === null) {
             $lastPlayed = Carbon::now();
         }
+        if ($lastChange === null) {
+            $lastChange = 0;
+        }
 
         $this->lastPlayed = $lastPlayed;
+        $this->lastChange = $lastChange;
     }
 
     /**
@@ -115,6 +120,10 @@ class User extends Entity implements Arrayable
     public function lastPlayed() : Carbon
     {
         return $this->lastPlayed;
+    }
+    public function lastChange()
+    {
+        return $this->lastChange;
     }
 
     /**

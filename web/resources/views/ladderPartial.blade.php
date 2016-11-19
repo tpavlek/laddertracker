@@ -22,7 +22,17 @@
             <tr @if (\Carbon\Carbon::now()->subWeek()->gt($user->lastPlayed())) class="stale" @endif>
                 <td>{{ $index + 1 }}.</td>
                 <td><a href="{{ $user->getBnetUrl() }}">{{ $user->getDisplayName() }}</a> @if (\Carbon\Carbon::now()->subWeek()->gt($user->lastPlayed())) | <em>Last Game: {{ $user->lastPlayed()->format('M j') }}</em> @endif</td>
-                <td>@if($user->getRank()->getLadderRank() > 0 && $user->getRank()->getLadderRank() < 201) <strong>{{ $user->getRank()->getLadderRank() }}</strong> ({{ $user->getRank()->getLadderPoints() }} points) @else - @endif</td>
+                <td>
+                    @if($user->getRank()->getLadderRank() > 0 && $user->getRank()->getLadderRank() < 201)
+                        <strong>{{ $user->getRank()->getLadderRank() }}</strong> ({{ $user->getRank()->getLadderPoints() }} points)
+                        @if($user->lastChange() > 0)
+                            <font color="green">+{{ $user->lastChange() }}</font>
+                        @elseif($user->lastChange() < 0)
+                            <font color="red">{{ $user->lastChange() }}</font>
+                        @endif
+                    @else - 
+                    @endif
+                </td>
             </tr>
         @empty
             <tr>

@@ -63,7 +63,8 @@ class UserConstructor extends EntityConstructor
             $rank,
             ($attributes['hero_points'] instanceof HeroPoints) ? $attributes['hero_points'] : new HeroPoints($attributes['hero_points']),
             ($attributes['region'] instanceof Region) ? $attributes['region'] : new Region($attributes['region']),
-            ($attributes['last_played_game'] ?? null)
+            ($attributes['last_played_game'] ?? null),
+            ($attributes['last_change'])
         );
 
         return $user;

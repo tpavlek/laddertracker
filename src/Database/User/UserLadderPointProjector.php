@@ -26,6 +26,7 @@ class UserLadderPointProjector extends Projector
         $user = $this->userTable->where('id', '=', $event->getPayload()['userId']);
         $user->increment('ladder_points', $event->getPayload()['difference']);
         $user->update(['last_game' => Carbon::now()->toDateTimeString()]);
+        $user->update(['last_change' => $event->getPayload()['difference']]);
     }
 
     public function projectUserDroppedOutOfGrandmaster(UserDroppedOutOfGrandmasterEvent $event)
