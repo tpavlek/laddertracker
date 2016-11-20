@@ -26,9 +26,9 @@
                     @if($user->getRank()->getLadderRank() > 0 && $user->getRank()->getLadderRank() < 201)
                         <strong>{{ $user->getRank()->getLadderRank() }}</strong> ({{ $user->getRank()->getLadderPoints() }} points)
                         @if($user->lastChange() > 0)
-                            <font color="green">+{{ $user->lastChange() }} ({{ $user->getTimeSinceLastGame() }})</font>
+                            <span style="color:green">+{{ $user->lastChange() }} ({{ $user->getTimeSinceLastGame() }})</span>
                         @elseif($user->lastChange() < 0)
-                            <font color="red">{{ $user->lastChange() }} ({{ $user->getTimeSinceLastGame() }})</font>
+                            <span style="color:red">{{ $user->lastChange() }} ({{ $user->getTimeSinceLastGame() }})</span>
                         @endif
                     @else - 
                     @endif
