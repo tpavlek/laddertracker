@@ -1,7 +1,7 @@
 <div class="info-panel registered-users ladder-ranking">
     <h1>{{ $ladder_title or "Ladder Rankings" }}</h1>
     @if($ladder_title == "Europe")
-        <span style='color:orange'>Next lock in : {{ $euLockDate }}</span>
+        <span style='color:orange'> EU countdown timer currently broken, wokring on fix!</span>
     @elseif($ladder_title == "North America")
         <span style='color:orange'>Next lock in : {{ $naLockDate }}</span>
     @endif
