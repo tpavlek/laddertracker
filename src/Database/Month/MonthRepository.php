@@ -76,7 +76,7 @@ class MonthRepository
         }
 
         $diff = $lockTime->diff($currentTime);
-        return $diff->format('%d days %h hours %i minutes %s seconds') . '|||' . $region->serialize();
+        return $diff->format('%d days %h hours %i minutes %s seconds');
     }
 
 }
