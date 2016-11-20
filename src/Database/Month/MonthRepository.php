@@ -74,6 +74,8 @@ class MonthRepository
         if($dbLockTime) {
             $lockTime = new Carbon($dbLockTime->lock_time);
         }
+        
+        return $lockTime->diffInSeconds($currentTime);
 
         $diff = $lockTime->diff($currentTime);
         return $diff->format('%d days %h hours %i minutes %s seconds');

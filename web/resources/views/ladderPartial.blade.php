@@ -1,9 +1,40 @@
 <div class="info-panel registered-users ladder-ranking">
     <h1>{{ $ladder_title or "Ladder Rankings" }}</h1>
     @if($ladder_title == "Europe")
-        <span style='color:orange'> EU countdown timer currently broken, wokring on fix!</span>
+        <span style='color:orange'>EU Countdown timer currently broken, working on a fix!</span>
     @elseif($ladder_title == "North America")
-        <span style='color:orange'>Next lock in : {{ $naLockDate }}</span>
+        <span style='color:orange'>Next lock in : <span id="naTimer">Loading . . .</span></span>
+        <script language="JavaScript">
+            var naCount = {{ $naLockDate }};
+            var euCount = {{ $euLockDate }};
+            var counter = setInterval(timer, 1000);
+            function timer() {
+                if(naCount <= 0) {
+                    document.getElementById("euTimer").innerHTML = "Ladder locked!";
+                } else {
+                    naCount = naCount - 1;
+                    document.getElementById("naTimer").innerHTML = (formatCountdown(naCount));
+                }
+                /* if(euCount <= 0) {
+                    document.getElementById("euTimer").innerHTML = "Ladder locked!";
+                } else {
+                    euCount = euCount - 1;
+                    document.getElementById("euTimer").innerHTML = (formatCountdown(euCount));
+                }*/
+                if(naCount <= 0 && euCount <=0) {
+                    clearInterval(counter);
+                }
+
+            }
+            function formatCountdown(t) {
+                var seconds = Math.floor(t % 60);
+                var minutes = Math.floor((t/60) % 60);
+                var hours = Math.floor((t/(60*60)) % 24);
+                var days = Math.floor(t/(60*60*24));
+                return days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds';
+            }
+        </script>
+
     @endif
     @if($ladder_title == "Europe" && !$euMessage->isEmpty())
         <div class="notification success">
@@ -47,3 +78,4 @@
         </tbody>
     </table>
 </div>
+
