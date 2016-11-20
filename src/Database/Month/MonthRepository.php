@@ -65,18 +65,18 @@ class MonthRepository
             ->values();
     }
 
-    public function getNextLockDate($region)
+    public function getNextLockDate(Region $region)
     {
         // get the next lock date that's after the current time for a region
         $currentTime = Carbon::now();
-        $dbLockTime = $this->lockTable->where([['lock_time', '>', $currentTime], ['region', '=', $region]])->orderBy('lock_time', 'ASC')->first();
+        $dbLockTime = $this->lockTable->where([['lock_time', '>', $currentTime], ['region', '=', $region->serialize()]])->orderBy('lock_time', 'ASC')->first();
         $lockTime = $currentTime;
         if($dbLockTime) {
             $lockTime = new Carbon($dbLockTime->lock_time);
         }
 
         $diff = $lockTime->diff($currentTime);
-        return $diff->format('%d days %h hours %i minutes %s seconds');
+        return $diff->format('%d days %h hours %i minutes %s seconds') . '|||' . $region->serialize();
     }
 
 }
