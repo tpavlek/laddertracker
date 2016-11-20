@@ -26,12 +26,16 @@ class HomeController extends Controller
 
         $naUsers = $this->userRepository->top(30, Region::america(), UserRepository::SORT_LADDER_POINTS, 'DESC');
         $euUsers = $this->userRepository->top(30, Region::europe(), UserRepository::SORT_LADDER_POINTS, 'DESC');
+        $naLockDate = $this->monthRepository->getnextLockDate('na');
+        $euLockDate = $this->monthRepository->getnextLockDate('eu');
 
         return view('index')
             ->with('naUsers', $naUsers)
             ->with('euUsers', $euUsers)
             ->with('naMessage', $this->messages->latest(Region::america()))
-            ->with('euMessage', $this->messages->latest(Region::europe()));
+            ->with('euMessage', $this->messages->latest(Region::europe()))
+            ->with('naLockDate', $naLockDate)
+            ->with('euLockDate', $euLockDate);
     }
 
     public function about_na()

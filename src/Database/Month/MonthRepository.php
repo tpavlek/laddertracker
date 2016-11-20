@@ -15,14 +15,17 @@ class MonthRepository
 {
 
     const MONTH_TABLE_NAME = "hero_points_month";
+    const LOCK_TABLE_NAME = "lock_dates";
 
     protected $monthTable;
     protected $monthConstructor;
+    protected $lockTable;
     protected $userConstructor;
 
     public function __construct(ConnectionInterface $connection, MonthConstructor $monthConstructor, UserConstructor $userConstructor)
     {
         $this->monthTable = $connection->table(self::MONTH_TABLE_NAME);
+        $this->lockTable = $connection->table(self::LOCK_TABLE_NAME);
         $this->monthConstructor = $monthConstructor;
         $this->userConstructor = $userConstructor;
     }
@@ -60,6 +63,20 @@ class MonthRepository
                 return $month->getEndDate()->serialize();
             })
             ->values();
+    }
+
+    public function getNextLockDate($region)
+    {
+        // get the next lock date that's after the current time for a region
+        $currentTime = Carbon::now();
+        $dbLockTime = $this->lockTable->where([['lock_time', '>', $currentTime], ['region', '=', $region]])->orderBy('lock_time', 'ASC')->first();
+        $lockTime = $currentTime;
+        if($dbLockTime) {
+            $lockTime = new Carbon($dbLockTime->lock_time);
+        }
+
+        $diff = $lockTime->diff($currentTime);
+        return $diff->format('%d days %h hours %i minutes %s seconds');
     }
 
 }
