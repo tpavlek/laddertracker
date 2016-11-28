@@ -17,22 +17,20 @@ class MonthRepository
     const MONTH_TABLE_NAME = "hero_points_month";
     const LOCK_TABLE_NAME = "lock_dates";
 
-    protected $monthTable;
+    protected $connection;
     protected $monthConstructor;
-    protected $lockTable;
     protected $userConstructor;
 
     public function __construct(ConnectionInterface $connection, MonthConstructor $monthConstructor, UserConstructor $userConstructor)
     {
-        $this->monthTable = $connection->table(self::MONTH_TABLE_NAME);
-        $this->lockTable = $connection->table(self::LOCK_TABLE_NAME);
+        $this->connection = $connection;
         $this->monthConstructor = $monthConstructor;
         $this->userConstructor = $userConstructor;
     }
 
     public function all()
     {
-        return collect($this->monthTable->orderBy('end_date', 'DESC')->get())
+        return collect($this->monthTable()->orderBy('end_date', 'DESC')->get())
             ->groupBy('month_id')
             ->filter(function (Collection $monthData) { return $monthData->count(); })
             ->map(function (Collection $monthData) {
@@ -69,16 +67,26 @@ class MonthRepository
     {
         // get the next lock date that's after the current time for a region
         $currentTime = Carbon::now();
-        $dbLockTime = $this->lockTable->where([['lock_time', '>', $currentTime], ['region', '=', $region->serialize()]])->orderBy('lock_time', 'ASC')->first();
+        $dbLockTime = $this->lockTable()
+            ->where([['lock_time', '>', $currentTime], ['region', '=', $region->serialize()]])
+            ->orderBy('lock_time', 'ASC')
+            ->first();
         $lockTime = $currentTime;
         if($dbLockTime) {
             $lockTime = new Carbon($dbLockTime->lock_time);
         }
         
         return $lockTime->diffInSeconds($currentTime);
+    }
 
-        $diff = $lockTime->diff($currentTime);
-        return $diff->format('%d days %h hours %i minutes %s seconds');
+    public function lockTable()
+    {
+        return $this->connection->table(self::LOCK_TABLE_NAME);
+    }
+    
+    public function monthTable()
+    {
+        return $this->connection->table(self::MONTH_TABLE_NAME);
     }
 
 }

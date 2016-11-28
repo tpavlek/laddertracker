@@ -26,8 +26,8 @@ class HomeController extends Controller
 
         $naUsers = $this->userRepository->top(30, Region::america(), UserRepository::SORT_LADDER_POINTS, 'DESC');
         $euUsers = $this->userRepository->top(30, Region::europe(), UserRepository::SORT_LADDER_POINTS, 'DESC');
-        $naLockDate = $this->monthRepository->getnextLockDate(Region::america());
-        $euLockDate = $this->monthRepository->getnextLockDate(Region::europe());
+        $naLockDate = $this->monthRepository->getNextLockDate(Region::america());
+        $euLockDate = $this->monthRepository->getNextLockDate(Region::europe());
 
         return view('index')
             ->with('naUsers', $naUsers)

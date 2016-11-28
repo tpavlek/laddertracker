@@ -1,7 +1,7 @@
 <div class="info-panel registered-users ladder-ranking">
     <h1>{{ $ladder_title or "Ladder Rankings" }}</h1>
     @if($ladder_title == "Europe")
-        <span style='color:orange'>EU Countdown timer currently broken, working on a fix!</span>
+        <span style='color:orange'>Next lock in : <span id="euTimer">Loading . . .</span></span>
     @elseif($ladder_title == "North America")
         <span style='color:orange'>Next lock in : <span id="naTimer">Loading . . .</span></span>
         <script language="JavaScript">
@@ -15,12 +15,12 @@
                     naCount = naCount - 1;
                     document.getElementById("naTimer").innerHTML = (formatCountdown(naCount));
                 }
-                /* if(euCount <= 0) {
+                if(euCount <= 0) {
                     document.getElementById("euTimer").innerHTML = "Ladder locked!";
                 } else {
                     euCount = euCount - 1;
                     document.getElementById("euTimer").innerHTML = (formatCountdown(euCount));
-                }*/
+                }
                 if(naCount <= 0 && euCount <=0) {
                     clearInterval(counter);
                 }
