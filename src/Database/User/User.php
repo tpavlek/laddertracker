@@ -123,6 +123,7 @@ class User extends Entity implements Arrayable
     }
     public function lastChange()
     {
+        if ($this->lastChange > 150 || $this->lastChange < -150) return 0;
         return $this->lastChange;
     }
     public function getTimeSinceLastGame()
