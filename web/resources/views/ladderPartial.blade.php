@@ -51,7 +51,7 @@
             <th>Rank</th>
             <th>Player</th>
             <th>Ladder Rank</th>
-            <th>Last Change</th>
+            <th>Last Point Change</th>
         </tr>
         </thead>
         <tbody>
