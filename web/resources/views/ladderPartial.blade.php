@@ -57,7 +57,16 @@
         <tbody>
         @forelse ($users as $index => $user)
             <tr @if (\Carbon\Carbon::now()->subWeek()->gt($user->lastPlayed())) class="stale" @endif>
-                <td>{{ $index + 1 }}.</td>
+                <td>
+                    {{ $index + 1 }}.
+                    @if($index + 1 == 1) <span style="color:green">($50)</span>
+                    @elseif($index + 1 == 2) <span style="color:green">($30)</span>
+                    @elseif($index + 1 == 3) <span style="color:green">($20)</span>
+                    @elseif($index + 1 == 4) <span style="color:green">($20)</span>
+                    @elseif($index + 1 == 5) <span style="color:green">($15)</span>
+                    @elseif($index + 1 == 6) <span style="color:green">($15)</span>
+                    @endif
+                </td>
                 <td><a href="{{ $user->getBnetUrl() }}">{{ $user->getDisplayName() }}</a> </td>
                 <td>
                     @if($user->getRank()->getLadderRank() > 0 && $user->getRank()->getLadderRank() < 201)
