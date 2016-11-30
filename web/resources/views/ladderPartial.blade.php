@@ -51,24 +51,32 @@
             <th>Rank</th>
             <th>Player</th>
             <th>Ladder Rank</th>
+            <th>Last Change</th>
         </tr>
         </thead>
         <tbody>
         @forelse ($users as $index => $user)
             <tr @if (\Carbon\Carbon::now()->subWeek()->gt($user->lastPlayed())) class="stale" @endif>
                 <td>{{ $index + 1 }}.</td>
-                <td><a href="{{ $user->getBnetUrl() }}">{{ $user->getDisplayName() }}</a> @if (\Carbon\Carbon::now()->subWeek()->gt($user->lastPlayed())) | <em>Last Game: {{ $user->lastPlayed()->format('M j') }}</em> @endif</td>
+                <td><a href="{{ $user->getBnetUrl() }}">{{ $user->getDisplayName() }}</a> </td>
                 <td>
                     @if($user->getRank()->getLadderRank() > 0 && $user->getRank()->getLadderRank() < 201)
                         <strong>{{ $user->getRank()->getLadderRank() }}</strong> ({{ $user->getRank()->getLadderPoints() }} points)
+                    @else - 
+                    @endif
+                </td>
+                <td>
+                    @if (\Carbon\Carbon::now()->subWeek()->gt($user->lastPlayed()))
+                        <em>Last Game: {{ $user->lastPlayed()->format('M j') }}</em>
+                    @else
                         @if($user->lastChange() > 0)
                             <span style="color:green">+{{ $user->lastChange() }} ({{ $user->getTimeSinceLastGame() }})</span>
                         @elseif($user->lastChange() < 0)
                             <span style="color:red">{{ $user->lastChange() }} ({{ $user->getTimeSinceLastGame() }})</span>
                         @endif
-                    @else - 
                     @endif
                 </td>
+                    
             </tr>
         @empty
             <tr>
