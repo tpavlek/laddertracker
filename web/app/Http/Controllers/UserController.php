@@ -41,8 +41,9 @@ class UserController extends Controller
             $bnet_url = new BnetUrl($input->get('bnet_url'));
             $bnet_id = BnetId::fromBnetUrl($bnet_url);
             $region = new Region($input->get('region'));
+            $paypal = (string) $input->get('paypal');
 
-            $registerUserCommand->register($displayName, $bnet_id, $bnet_url, $region);
+            $registerUserCommand->register($displayName, $bnet_id, $bnet_url, $region, $paypal);
 
             return redirect()->route('admin.dashboard')->withErrors(new MessageBag([
                 'success' => "Successfully registered {$displayName}"

@@ -28,6 +28,11 @@ Register User
                 </select>
             </div>
 
+            <div class="pure-control-group">
+                <label for="paypal">Paypal:</label>
+                <input type="text" name="paypal" title="paypal"/>
+            </div>
+
             <div class="pure-controls">
                 <input type="submit" class="button success" value="Register" />
             </div>

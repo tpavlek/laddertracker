@@ -36,7 +36,9 @@ class User extends Entity implements Arrayable
     protected $lastPlayed;
     protected $lastChange;
 
-    public function __construct(UserId $id, ClanTag $clanTag, DisplayName $display_name, BnetId $bnet_id, BnetUrl $bnet_url, Rank $rank, HeroPoints $heroPoints, Region $region, Carbon $lastPlayed = null, $lastChange)
+    protected $paypal;
+
+    public function __construct(UserId $id, ClanTag $clanTag, DisplayName $display_name, BnetId $bnet_id, BnetUrl $bnet_url, Rank $rank, HeroPoints $heroPoints, Region $region, Carbon $lastPlayed = null, $lastChange, String $paypal = null)
     {
         $this->id = $id;
         $this->clan_tag = $clanTag;
@@ -46,6 +48,7 @@ class User extends Entity implements Arrayable
         $this->rank = $rank;
         $this->heroPoints = $heroPoints;
         $this->region = $region;
+        $this->paypal = $paypal == null ? '' : $paypal;
 
         if ($lastPlayed === null) {
             $lastPlayed = Carbon::now();
@@ -117,6 +120,11 @@ class User extends Entity implements Arrayable
         return $this->clan_tag;
     }
 
+    public function getPaypal() : String
+    {
+        return $this->paypal;
+    }
+
     public function lastPlayed() : Carbon
     {
         return $this->lastPlayed;
@@ -147,7 +155,8 @@ class User extends Entity implements Arrayable
             'ladder_rank' => $this->getRank()->getLadderRank(),
             'ladder_points' => $this->getRank()->getLadderPoints(),
             'hero_points' => $this->getHeroPoints()->getPoints(),
-            'region' => $this->region->toString()
+            'region' => $this->region->toString(),
+            'paypal' => $this->paypal
         ];
     }
 }

@@ -22,13 +22,14 @@ class RegisterUserCommand
         $this->userConstructor = $userConstructor;
     }
 
-    public function register(DisplayName $displayName, BnetId $bnetId, BnetUrl $bnetUrl, Region $region)
+    public function register(DisplayName $displayName, BnetId $bnetId, BnetUrl $bnetUrl, Region $region, String $paypal)
     {
         $user = $this->userConstructor->create([
             'display_name' => $displayName,
             'bnet_id' => $bnetId,
             'bnet_url' => $bnetUrl,
-            'region' => $region
+            'region' => $region,
+            'paypal' => $paypal
         ]);
 
         $this->emitter->emit(new UserWasRegisteredEvent($user));

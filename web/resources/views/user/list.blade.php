@@ -12,6 +12,7 @@ All LadderHeroes Users
                     <th>Display Name</th>
                     <th>Battle.net URL</th>
                     <th>Region</th>
+                    <th>Paypal</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +21,7 @@ All LadderHeroes Users
                         <td>{{ $user->getDisplayName() }}</td>
                         <td>{{ $user->getBnetUrl() }}</td>
                         <td>{{ $user->getRegion() }}</td>
+                        <td>{{ $user->getPaypal() }}</td>
                     </tr>
                 @empty
                     <tr>
