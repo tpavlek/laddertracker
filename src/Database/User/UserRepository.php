@@ -41,7 +41,7 @@ class UserRepository
     public function all()
     {
         $users = new Collection();
-        foreach ($this->userTable()->select()->get() as $userData) {
+        foreach ($this->userTable()->select()->orderBy('display_name', 'ASC')->get() as $userData) {
             $users->push($this->userConstructor->createInstance(
                 array_merge((array)$userData, [ 'last_played_game' => $this->lastPlayedGame($userData) ])
             ));
