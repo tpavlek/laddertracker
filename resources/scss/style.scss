@@ -31,7 +31,7 @@ body {
   height: 100%;
 
   // Necessary to have an image as a background
-  background: url('/img/bg/sc2-battle.jpg');
+  background-color: dimgrey;
   background-size: cover;
   text-align:center;
   position:relative;
@@ -45,7 +45,6 @@ body::after {
   height: 100%;
   top:0;
   left: 0;
-  background:#708090;
   opacity: 0.4;
   z-index: -1;
 }
